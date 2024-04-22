@@ -1,16 +1,17 @@
 package com.example.contactapp.data
 
+import android.graphics.Bitmap
 import android.os.Parcelable
-import androidx.annotation.DrawableRes
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ContactInformation(
-    val name: String,
-    val phoneNumber: Int,
-    @DrawableRes
-    val imageRes: Int,
-    val isLike: Boolean = false,
-    val relationship: String,
-    val email: String
+    var name: String,
+    var phoneNumber: Int,
+    var imageRes: Bitmap? = null,
+    var isLike: Boolean = false,
+    var relationship: String,
+    var email: String
 ) : Parcelable
+
+

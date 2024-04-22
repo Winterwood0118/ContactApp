@@ -7,6 +7,9 @@
     <color name="red">#FF2121</color>
     <color name="edit_text_bg_grey">#D9D9D9</color>
     <color name="hint_grey">#9E9E9E</color>
+    <color name="btn_green">#08AE2D</color>
+    <color name="btn_yellow">#E9AD13</color>
+
 
 
 </resources>

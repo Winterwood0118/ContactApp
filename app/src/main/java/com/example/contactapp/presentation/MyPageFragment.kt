@@ -1,4 +1,4 @@
-package com.example.contactapp.presentaion
+package com.example.contactapp.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
