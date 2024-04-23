@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -32,6 +33,14 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    viewBinding{
+        enable = true
+    }
+
+    // 버전이 달라서 새로 만들었습니다! (세영)
+    buildFeatures {
+        viewBinding = true
     }
 }
 
