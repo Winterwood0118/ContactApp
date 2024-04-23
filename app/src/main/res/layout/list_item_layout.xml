@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="95dp">
+    android:layout_height="95dp"
+    android:background="@color/white">
 
 
     <ImageView
         android:id="@+id/ivProfile"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        tools:src="@tools:sample/avatars"
+        tools:src="@drawable/img_jim"
         android:layout_margin="10dp"
         android:background="@drawable/background_circle"
         android:scaleType="centerCrop"
@@ -34,7 +35,7 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="홍길동"
+            android:text="짐 레이너"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
