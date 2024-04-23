@@ -2,6 +2,7 @@ package com.example.contactapp.presentation
 
 import android.media.Image
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
@@ -10,42 +11,48 @@ import com.example.contactapp.data.ContactInformation
 import com.example.contactapp.databinding.ListItemLayoutBinding
 import com.example.contactapp.function.switchHeart
 
-class ContactListAdapter(private val onClick: (ContactInformation) -> Unit)  : RecyclerView.Adapter<ContactListAdapter.Holder>(){
+class ContactListAdapter()  : RecyclerView.Adapter<ContactListAdapter.Holder>(){
 
     var contacts = listOf<ContactInformation>()
 
-    inner class Holder(private val binding : ListItemLayoutBinding, val onClick: (ContactInformation) -> Unit) : RecyclerView.ViewHolder(binding.root){
-        private var currentItem: ContactInformation? = null
+    interface ItemClick {
+        fun itemClick(view : View, position: Int)
+    }
 
-        init {
-            itemView.setOnClickListener{
-                currentItem?.let{
-                    onClick(it)
-                }
-            }
-        }
+    interface HeartClick {
+        fun heartClick(view: View, position: Int)
+    }
 
+    var itemClick : ItemClick? = null
+    var heartClick : HeartClick? = null
+
+    inner class Holder(private val binding : ListItemLayoutBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(contact: ContactInformation){
             binding.apply {
                 ivProfile.setImageBitmap(contact.imageRes)
                 tvName.text = contact.name
                 tvNumber.text = contact.phoneNumber
+                ivHeart.switchHeart(contact.isLike)
             }
         }
-
-        lateinit var ivHeart : ImageView
-
+        val ivHeart = binding.ivHeart
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactListAdapter.Holder {
         val binding = ListItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return Holder(binding, onClick)
+        return Holder(binding)
     }
 
     override fun onBindViewHolder(holder: ContactListAdapter.Holder, position: Int) {
-        holder.bind(contacts[position])
-
-        holder.ivHeart.switchHeart(contacts[position].isLike)
+        holder.apply {
+            bind(contacts[position])
+            itemView.setOnClickListener{
+                itemClick?.itemClick(it, position)
+            }
+        }
+        holder.ivHeart.setOnClickListener{
+            heartClick?.heartClick(it, position)
+        }
     }
 
     override fun getItemCount(): Int {
