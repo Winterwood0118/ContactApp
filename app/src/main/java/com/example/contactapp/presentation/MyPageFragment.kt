@@ -5,22 +5,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.marginTop
 import com.example.contactapp.R
+import com.example.contactapp.data.ContactInformation
+import com.example.contactapp.databinding.FragmentMyPageBinding
+import com.example.contactapp.function.setBitmapProfile
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MyPageFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MyPageFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+    private lateinit var binding: FragmentMyPageBinding
     private var param1: String? = null
     private var param2: String? = null
+
+    private val myContact = ContactInformation(
+        name = "홍길동",
+        phoneNumber = "010-5536-8898",
+        email = "eastwest@flash.com",
+        relationship = "본인"
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,21 +37,28 @@ class MyPageFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_page, container, false)
+    ): View {
+        binding = FragmentMyPageBinding.inflate(inflater, container, false)
+        with(binding) {
+            etEmail.apply {
+                setText(myContact.email)
+                isEnabled = false
+            }
+            etName.apply {
+                setText(myContact.name)
+                isEnabled = false
+            }
+            etPhoneNumber.apply {
+                setText(myContact.phoneNumber)
+                isEnabled = false
+            }
+            ivProfile.setBitmapProfile(myContact.imageRes)
+        }
+        return binding.root
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MyPageFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             MyPageFragment().apply {
