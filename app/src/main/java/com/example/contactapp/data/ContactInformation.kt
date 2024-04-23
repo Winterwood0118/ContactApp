@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ContactInformation(
     var name: String,
-    var phoneNumber: Int,
+    var phoneNumber: String,
     var imageRes: Bitmap? = null,
     var isLike: Boolean = false,
     var relationship: String,
