@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.contactapp.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.contactapp.data.ContactInformation
+import com.example.contactapp.data.DataSource
+import com.example.contactapp.databinding.FragmentContactListBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,10 +20,18 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ContactListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@Suppress("UNREACHABLE_CODE")
 class ContactListFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private val binding by lazy { FragmentContactListBinding.inflate(layoutInflater) }
+
+    private val contactAdapter : ContactListAdapter by lazy {
+        ContactListAdapter { contacts ->
+            onClick(contacts)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +45,21 @@ class ContactListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact_list, container, false)
+//        contactAdapter.contacts = DataSource.getInstance().getContactList(requireContext())
+
+        var dataSource = DataSource.getInstance()
+        var dataList = dataSource.getContactList(requireContext())
+
+        binding.recyclerView.apply {
+            adapter = contactAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+
+        return binding.root
+    }
+
+    private fun onClick(contacts: ContactInformation){
+
     }
 
     companion object {
