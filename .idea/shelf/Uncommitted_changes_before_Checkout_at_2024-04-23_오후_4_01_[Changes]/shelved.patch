@@ -1,0 +1,19 @@
+Index: app/src/main/java/com/example/contactapp/data/DataSource.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.contactapp.data\r\n\r\nimport android.content.Context\r\nimport com.example.contactapp.function.getContacts\r\n\r\nclass DataSource {\r\n    companion object{\r\n        private var INSTANCE: DataSource? = null\r\n        fun getInstance(): DataSource{\r\n            return INSTANCE?: DataSource().apply { INSTANCE = this }\r\n        }\r\n\r\n    }\r\n    var itemList = mutableListOf<ContactInformation>()\r\n\r\n    fun getContactList(context: Context) {\r\n        itemList = getContacts(context).toMutableList()\r\n    }\r\n\r\n    fun addContact(contactInformation: ContactInformation){\r\n        itemList.add(contactInformation)\r\n    }\r\n\r\n    fun deleteContact(contactInformation: ContactInformation){\r\n        itemList.remove(contactInformation)\r\n    }\r\n\r\n    fun switchLike(position: Int) {\r\n        itemList[position].isLike = !contactList[position].isLike\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/contactapp/data/DataSource.kt b/app/src/main/java/com/example/contactapp/data/DataSource.kt
+--- a/app/src/main/java/com/example/contactapp/data/DataSource.kt	(revision 1af908c35922739c857d96435ed416d9f59e0c70)
++++ b/app/src/main/java/com/example/contactapp/data/DataSource.kt	(date 1713854582978)
+@@ -26,6 +26,6 @@
+     }
+ 
+     fun switchLike(position: Int) {
+-        itemList[position].isLike = !contactList[position].isLike
++        itemList[position].isLike = !itemList[position].isLike
+     }
+ }
+\ No newline at end of file
