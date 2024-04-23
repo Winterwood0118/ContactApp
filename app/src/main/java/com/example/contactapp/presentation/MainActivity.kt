@@ -17,5 +17,10 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragmentContainer, ContactDetailFragment())
+            commit()
+        }
     }
 }
