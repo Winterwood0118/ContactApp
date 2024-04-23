@@ -26,6 +26,6 @@ class DataSource {
     }
 
     fun switchLike(position: Int) {
-        itemList[position].isLike = !contactList[position].isLike
+        itemList[position].isLike = !itemList[position].isLike
     }
 }
