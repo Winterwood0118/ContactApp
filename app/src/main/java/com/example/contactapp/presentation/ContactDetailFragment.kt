@@ -18,7 +18,7 @@ import androidx.core.content.ContextCompat
 import com.example.contactapp.databinding.FragmentContactDetailBinding
 import java.io.IOException
 
-//todo uri -> bitMap으로 변경
+//uri -> bitMap으로 변경
 class ContactDetailFragment : Fragment() {
     private var selectedUri: Uri? = null
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
@@ -61,7 +61,7 @@ class ContactDetailFragment : Fragment() {
         binding.ivCall.setOnClickListener {
             binding.tvNumber.text = "01012345678" //임시 데이터
             val phoneNumber = binding.tvNumber.text
-            val callUriSwipedPerson = Uri.parse("tel:$phoneNumber")
+            val callIntent = Uri.parse("tel:$phoneNumber")
             // 권한 확인
             if (ContextCompat.checkSelfPermission(
                     requireContext(),
@@ -73,7 +73,7 @@ class ContactDetailFragment : Fragment() {
                     REQUEST_CALL_PERMISSION
                 )
             } else {
-                startActivity(Intent(Intent.ACTION_CALL, callUriSwipedPerson))
+                startActivity(Intent(Intent.ACTION_CALL, callIntent))
             }
         }
     }
@@ -104,18 +104,17 @@ class ContactDetailFragment : Fragment() {
         }
     }
 
-    private fun uriToBitmap(uri:Uri): Bitmap?{
+    private fun uriToBitmap(uri: Uri): Bitmap? {
         return try {
             val inputStream = requireContext().contentResolver.openInputStream(uri)
             //uri로부터 이미지에 대한 입력 스트림을 연다.
             BitmapFactory.decodeStream(inputStream)
             //입력 스트림에서 비트맵 디코딩
-        } catch (e:IOException){
+        } catch (e: IOException) {
             e.printStackTrace()
             null
         }
     }
-
 
 
     override fun onDestroyView() {
