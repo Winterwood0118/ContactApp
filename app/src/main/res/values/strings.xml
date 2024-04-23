@@ -7,4 +7,6 @@
     <string name="Email">Email</string>
     <string name="PhoneNumber">Phone Number</string>
     <string name="Add">Add</string>
+    <string name="tab_left">CONTACT LIST</string>
+    <string name="tab_right">MY PAGE</string>
 </resources>

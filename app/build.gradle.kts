@@ -37,6 +37,11 @@ android {
     viewBinding{
         enable = true
     }
+
+    // 버전이 달라서 새로 만들었습니다! (세영)
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
