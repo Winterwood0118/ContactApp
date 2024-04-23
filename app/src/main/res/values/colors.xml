@@ -9,4 +9,8 @@
     <color name="hint_grey">#9E9E9E</color>
     <color name="btn_green">#08AE2D</color>
     <color name="btn_yellow">#E9AD13</color>
+    <color name="grayLine">#E1DCDC</color>
+
+
+
 </resources>
