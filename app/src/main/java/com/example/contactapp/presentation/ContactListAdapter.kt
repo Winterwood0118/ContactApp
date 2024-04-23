@@ -23,6 +23,9 @@ class ContactListAdapter()  : RecyclerView.Adapter<ContactListAdapter.Holder>(){
 
         fun bind(contact: ContactInformation){
             binding.apply {
+                ivProfile.setImageResource(contact.imageRes)
+                tvName.text = contact.name
+                tvNumber.text = contact.phoneNumber.toString()
 
             }
         }
