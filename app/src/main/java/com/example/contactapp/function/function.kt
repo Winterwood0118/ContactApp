@@ -6,16 +6,10 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.widget.ImageView
 import com.example.contactapp.R
-import com.example.contactapp.data.ContactInformation
 import com.example.contactapp.data.contactList
 import com.example.contactapp.data.imageIdList
-import com.example.contactapp.presentation.ContactListFragment
 import android.net.Uri
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import com.example.contactapp.data.ContactInformation
-import com.example.contactapp.data.contactList
-import com.example.contactapp.data.imageIdList
 import java.io.IOException
 
 fun getContacts(context: Context): List<ContactInformation> {
