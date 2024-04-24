@@ -1,6 +1,5 @@
 package com.example.contactapp.presentation
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.contactapp.data.ContactInformation
+import com.example.contactapp.R
 import com.example.contactapp.data.DataSource
 import com.example.contactapp.databinding.FragmentContactListBinding
 import com.example.contactapp.function.switchHeart
@@ -18,9 +17,6 @@ import com.example.contactapp.function.switchHeart
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-interface FragmentDataListener {
-    fun onDataReceived(contact : ContactInformation)
-}
 
 @Suppress("UNREACHABLE_CODE")
 class ContactListFragment : Fragment() {
@@ -29,22 +25,6 @@ class ContactListFragment : Fragment() {
     private var param2: String? = null
 
     private val binding by lazy { FragmentContactListBinding.inflate(layoutInflater) }
-
-    private var listener: FragmentDataListener? = null
-
-    interface FragmentDataListener {
-        fun onDataReceived(contact : ContactInformation)
-    }
-
-    override fun onAttach(context : Context) {
-        super.onAttach(context)
-
-        if (context is FragmentDataListener) {
-            listener = context
-        } else {
-            throw RuntimeException("$context must implement FragmentDataListener")
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,10 +51,14 @@ class ContactListFragment : Fragment() {
 
         contactAdapter.itemClick = object : ContactListAdapter.ItemClick {
             override fun itemClick(view: View, position: Int) {
-                val detailData = contactAdapter.contactsList[position]
-                listener?.onDataReceived(detailData)
+                val detailFragment = ContactDetailFragment.newInstance()
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.frameLayout, detailFragment)
+                    .addToBackStack(null)
+                    .commit()
             }
         }
+
 
         contactAdapter.heartClick = object : ContactListAdapter.HeartClick {
             override fun heartClick(view: View, position: Int) {
