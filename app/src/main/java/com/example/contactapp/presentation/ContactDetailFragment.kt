@@ -11,10 +11,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import androidx.activity.addCallback
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.os.BundleCompat.getParcelable
+import com.example.contactapp.R
 import com.example.contactapp.data.ContactInformation
 import com.example.contactapp.databinding.FragmentContactDetailBinding
 import com.example.contactapp.function.uriToBitmap
@@ -61,11 +64,17 @@ class ContactDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.hideTabLayout() //TabLayout 숨기기
         setUpCall()
         setUpMessage()
         setUpProfile()
+        correctUser()
 
         initData()
+
+        binding.ivBack.setOnClickListener {
+            goBack()
+        }
     }
 
     //전화
@@ -111,10 +120,16 @@ class ContactDetailFragment : Fragment() {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
         binding.ivDelete.setOnClickListener {
+            selectedUri = null
+            binding.ivProfile.setImageResource(R.drawable.ic_default_user)
+        }
+    }
+
+    //todo 정보 수정 Dialog
+    private fun correctUser(){
+        binding.ivCorrect.setOnClickListener {
             val dialog = AddContact()
             dialog.show(childFragmentManager, AddContact.TAG)
-//            selectedUri = null
-//            binding.ivProfile.setImageResource(R.drawable.ic_default_user)
         }
     }
 
@@ -131,18 +146,25 @@ class ContactDetailFragment : Fragment() {
 
     //데이터 삽입
     private fun initData() {
-        if (Build.VERSION.SDK_INT >= 33) { //33이상
+        if (Build.VERSION.SDK_INT >= 33) { // 33이상
             arguments?.getParcelable("selectedData", ContactInformation::class.java)?.let {
                 inputEachData(it)
             }
-        } else {
-            // API 레벨이 33 미만인 경우
+        } else {// 33미만
             arguments?.getParcelable<ContactInformation>("selectedData")?.let { selectedData ->
                 inputEachData(selectedData)
             }
         }
     }
+    private fun goBack() {
+        requireActivity().supportFragmentManager.popBackStack()
+        (activity as? MainActivity)?.showTabLayout() //다시 TabLayout 보이기
+    }
 
+    override fun onPause() {
+        super.onPause()
+
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

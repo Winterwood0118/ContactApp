@@ -1,6 +1,8 @@
 package com.example.contactapp.presentation
 
+import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,28 +52,26 @@ class ContactListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val contactAdapter = ContactListAdapter()
         val dataSource = DataSource.getInstance()
         dataSource.getContactList(requireActivity())
         contactAdapter.contactsList = dataSource.itemList
-
         binding.recyclerView.apply {
             adapter = contactAdapter
             layoutManager = LinearLayoutManager(context)
         }
 
-/*        //방법1
-        contactAdapter.itemClick = object : ContactListAdapter.ItemClick {
-            override fun itemClick(view: View, position: Int) {
-                val selectedData = dataSource.itemList[position]
-                val detailFragment = ContactDetailFragment.newInstance(selectedData)
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.frameLayout, detailFragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
-        }*/
+        /*        //방법1
+                contactAdapter.itemClick = object : ContactListAdapter.ItemClick {
+                    override fun itemClick(view: View, position: Int) {
+                        val selectedData = dataSource.itemList[position]
+                        val detailFragment = ContactDetailFragment.newInstance(selectedData)
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.frameLayout, detailFragment)
+                            .addToBackStack(null)
+                            .commit()
+                    }
+                }*/
 
 
         //방법2 -bundle
@@ -89,6 +89,7 @@ class ContactListFragment : Fragment() {
                     replace(R.id.frameLayout, detailFragment)
                     addToBackStack(null)
                     commit()
+                    binding.searchView.visibility = View.GONE
                 }
             }
         }
@@ -99,7 +100,6 @@ class ContactListFragment : Fragment() {
                 (view as ImageView).switchHeart(contactAdapter.contactsList[position].isLike)
             }
         }
-
         return binding.root
     }
 

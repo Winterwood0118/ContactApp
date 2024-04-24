@@ -20,6 +20,11 @@ class DataSource {
     fun getDataList():MutableList<ContactInformation>{
         return itemList
     }
+    fun updateContact(position: Int, updatedContact: ContactInformation) {
+        if (position in 0 until itemList.size) {
+            itemList[position] = updatedContact
+        }
+    }
 
     fun addContact(contactInformation: ContactInformation){
         itemList.add(contactInformation)
