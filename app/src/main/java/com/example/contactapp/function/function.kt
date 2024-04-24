@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.widget.ImageView
+import com.example.contactapp.R
 import android.net.Uri
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,6 +24,11 @@ fun getContacts(context: Context): List<ContactInformation> {
     return contactsList
 }
 
+fun ImageView.setBitmapProfile(bitmap: Bitmap?){
+    if(bitmap == null) setImageResource(R.drawable.ic_default_user)
+    else setImageBitmap(bitmap)
+}
+
 //uri -> Bitmap 변환
 fun uriToBitmap(context: Context, uri: Uri): Bitmap? {
     return try {
@@ -32,6 +39,4 @@ fun uriToBitmap(context: Context, uri: Uri): Bitmap? {
         null
     }
 }
-
-
 
