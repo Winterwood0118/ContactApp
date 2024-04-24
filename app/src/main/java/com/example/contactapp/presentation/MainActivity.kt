@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
-
         }
 
         val tabLayout = binding.tlTabs
@@ -37,7 +36,5 @@ class MainActivity : AppCompatActivity() {
                 1 -> tab.text = "MY PAGE"
             }
         }.attach()
-
-
     }
 }
