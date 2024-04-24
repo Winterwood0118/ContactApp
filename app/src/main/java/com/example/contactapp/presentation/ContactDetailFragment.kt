@@ -63,10 +63,7 @@ class ContactDetailFragment : Fragment() {
                     Manifest.permission.CALL_PHONE
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                requireActivity().requestPermissions(
-                    arrayOf(Manifest.permission.CALL_PHONE),
-                    REQUEST_CALL_PERMISSION
-                )
+                requireActivity().requestPermissions(arrayOf(Manifest.permission.CALL_PHONE), REQUEST_CALL_PERMISSION)
             } else {
                 startActivity(Intent(Intent.ACTION_CALL, callIntent))
             }
@@ -97,8 +94,10 @@ class ContactDetailFragment : Fragment() {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
         binding.ivDelete.setOnClickListener {
-            selectedUri = null
-            binding.ivProfile.setImageResource(R.drawable.ic_default_user)
+            val dialog = AddContact()
+            dialog.show(childFragmentManager,AddContact.TAG)
+//            selectedUri = null
+//            binding.ivProfile.setImageResource(R.drawable.ic_default_user)
         }
     }
 
