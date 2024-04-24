@@ -3,8 +3,6 @@ package com.example.contactapp.presentation
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -15,21 +13,18 @@ import android.view.ViewGroup
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import com.example.contactapp.R
 import com.example.contactapp.databinding.FragmentContactDetailBinding
-import java.io.IOException
+import com.example.contactapp.function.uriToBitmap
 
-//uri -> bitMap으로 변경
 class ContactDetailFragment : Fragment() {
     private var selectedUri: Uri? = null
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) { //이미지를 선택할 경우
             selectedUri = uri
             //uri -> bitMap으로 변경
-            val imageBitmap = uriToBitmap(uri)
-//            binding.ivProfile.setImageURI(uri) //uri로 가져오기
-            binding.ivProfile.setImageBitmap(imageBitmap) //bitmap으로 가져오기
-            Log.d("PhotoPicker", "$uri")
-            Log.d("PhotoPicker", "$imageBitmap")
+            val imageBitmap = uriToBitmap(requireContext(), uri)
+            binding.ivProfile.setImageBitmap(imageBitmap)
         } else {
             Log.d("PhotoPicker", "No media selected") //todo 이미지 선택하지 않을 경우(알림추가?)
         }
@@ -78,7 +73,7 @@ class ContactDetailFragment : Fragment() {
         }
     }
 
-    //문자 (전화와 동일)
+    //문자
     private fun setUpMessage() {
         binding.ivMessage.setOnClickListener {
             binding.tvNumber.text = "01012345678" //임시 데이터
@@ -96,23 +91,14 @@ class ContactDetailFragment : Fragment() {
         }
     }
 
-
     //photo picker 사용해서 이미지 선택
     private fun setUpProfile() {
         binding.ivAdd.setOnClickListener {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
-    }
-
-    private fun uriToBitmap(uri: Uri): Bitmap? {
-        return try {
-            val inputStream = requireContext().contentResolver.openInputStream(uri)
-            //uri로부터 이미지에 대한 입력 스트림을 연다.
-            BitmapFactory.decodeStream(inputStream)
-            //입력 스트림에서 비트맵 디코딩
-        } catch (e: IOException) {
-            e.printStackTrace()
-            null
+        binding.ivDelete.setOnClickListener {
+            selectedUri = null
+            binding.ivProfile.setImageResource(R.drawable.ic_default_user)
         }
     }
 
@@ -121,5 +107,4 @@ class ContactDetailFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
