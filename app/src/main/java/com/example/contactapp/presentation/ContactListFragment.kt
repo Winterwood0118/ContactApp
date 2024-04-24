@@ -9,7 +9,6 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.contactapp.data.DataSource
 import com.example.contactapp.databinding.FragmentContactListBinding
-import com.example.contactapp.databinding.ListItemLayoutBinding
 import com.example.contactapp.function.FragmentDataListener
 import com.example.contactapp.function.switchHeart
 
@@ -53,10 +52,8 @@ class ContactListFragment : Fragment() {
 
         val contactAdapter = ContactListAdapter()
         val dataSource = DataSource.getInstance()
-        contactAdapter.contactsList = dataSource.getContactList(this)
-
-//        dataSource.itemList = contactList
-//        contactAdapter.contactsList = dataSource.itemList
+        dataSource.getContactList(requireActivity())
+        contactAdapter.contactsList = dataSource.itemList
 
         binding.recyclerView.apply {
             adapter = contactAdapter

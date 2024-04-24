@@ -1,7 +1,7 @@
 package com.example.contactapp.data
 
+import android.content.Context
 import com.example.contactapp.function.getContacts
-import com.example.contactapp.presentation.ContactListFragment
 
 class DataSource {
     companion object{
