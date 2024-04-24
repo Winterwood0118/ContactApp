@@ -49,15 +49,15 @@ class ContactListFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
-        contactAdapter.itemClick = object : ContactListAdapter.ItemClick {
-            override fun itemClick(view: View, position: Int) {
-                val detailFragment = ContactDetailFragment.newInstance()
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.frameLayout, detailFragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
-        }
+//        contactAdapter.itemClick = object : ContactListAdapter.ItemClick {
+//            override fun itemClick(view: View, position: Int) {
+//                val detailFragment = ContactDetailFragment.newInstance()
+//                requireActivity().supportFragmentManager.beginTransaction()
+//                    .replace(R.id.frameLayout, detailFragment)
+//                    .addToBackStack(null)
+//                    .commit()
+//            }
+//        }
 
 
         contactAdapter.heartClick = object : ContactListAdapter.HeartClick {
