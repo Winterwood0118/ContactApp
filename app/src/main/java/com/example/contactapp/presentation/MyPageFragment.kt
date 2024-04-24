@@ -6,18 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.contactapp.data.ContactInformation
+import com.example.contactapp.data.myContact
 import com.example.contactapp.databinding.FragmentMyPageBinding
 import com.example.contactapp.function.setBitmapProfile
 
 class MyPageFragment : Fragment() {
     private lateinit var binding: FragmentMyPageBinding
 
-    private val myContact = ContactInformation(
-        name = "홍길동",
-        phoneNumber = "010-5536-8898",
-        email = "eastwest@flash.com",
-        relationship = "본인"
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +28,9 @@ class MyPageFragment : Fragment() {
             tvName.text = myContact.name
             tvPhoneNumber.text = myContact.phoneNumber
             ivProfile.setBitmapProfile(myContact.imageRes)
+            ivAdd.setOnClickListener {
+                AddContact(-1).show(requireActivity().supportFragmentManager, AddContact.TAG)
+            }
         }
         return binding.root
     }
