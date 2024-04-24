@@ -1,19 +1,18 @@
 package com.example.contactapp.presentation
 
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.contactapp.R
 import com.example.contactapp.data.ContactInformation
+import com.example.contactapp.data.DataSource
 import com.example.contactapp.databinding.ListItemLayoutBinding
 import com.example.contactapp.function.switchHeart
 
 class ContactListAdapter()  : RecyclerView.Adapter<ContactListAdapter.Holder>(){
 
-    var contacts = listOf<ContactInformation>()
+    val dataSource = DataSource.getInstance()
+    var contactsList = dataSource.itemList
 
     interface ItemClick {
         fun itemClick(view : View, position: Int)
@@ -45,7 +44,7 @@ class ContactListAdapter()  : RecyclerView.Adapter<ContactListAdapter.Holder>(){
 
     override fun onBindViewHolder(holder: ContactListAdapter.Holder, position: Int) {
         holder.apply {
-            bind(contacts[position])
+            bind(contactsList[position])
             itemView.setOnClickListener{
                 itemClick?.itemClick(it, position)
             }
@@ -56,7 +55,7 @@ class ContactListAdapter()  : RecyclerView.Adapter<ContactListAdapter.Holder>(){
     }
 
     override fun getItemCount(): Int {
-        return contacts.size
+        return contactsList.size
     }
 
 }

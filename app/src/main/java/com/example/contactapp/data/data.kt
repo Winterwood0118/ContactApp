@@ -2,7 +2,7 @@ package com.example.contactapp.data
 
 import com.example.contactapp.R
 
-val contactList = mutableListOf(
+val contactList = listOf(
     ContactInformation(
         name ="짐 레이너",
         email = "jim123@terran.com",

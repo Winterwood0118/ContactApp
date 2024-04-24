@@ -1,15 +1,13 @@
 package com.example.contactapp.presentation
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.contactapp.data.DataSource
-import com.example.contactapp.data.contactList
 import com.example.contactapp.databinding.FragmentContactListBinding
 import com.example.contactapp.databinding.ListItemLayoutBinding
 import com.example.contactapp.function.FragmentDataListener
@@ -55,8 +53,10 @@ class ContactListFragment : Fragment() {
 
         val contactAdapter = ContactListAdapter()
         val dataSource = DataSource.getInstance()
-        dataSource.itemList = contactList
-        contactAdapter.contacts = dataSource.itemList
+        contactAdapter.contactsList = dataSource.getContactList(this)
+
+//        dataSource.itemList = contactList
+//        contactAdapter.contactsList = dataSource.itemList
 
         binding.recyclerView.apply {
             adapter = contactAdapter
@@ -65,18 +65,17 @@ class ContactListFragment : Fragment() {
 
         contactAdapter.itemClick = object : ContactListAdapter.ItemClick {
             override fun itemClick(view: View, position: Int) {
-                val detailData = contactAdapter.contacts[position]
+                val detailData = contactAdapter.contactsList[position]
                 listener?.onDataReeived(detailData)
             }
         }
 
-//        contactAdapter.heartClick = object : ContactListAdapter.HeartClick {
-//            override fun heartClick(view: View, position: Int) {
-//                dataSource.switchLike(position)
-//                contactAdapter.Holder(ListItemLayoutBinding.inflate(LayoutInflater.from(context)))
-//                    .ivHeart.switchHeart(contactAdapter.contacts[position].isLike)
-//            }
-//        }
+        contactAdapter.heartClick = object : ContactListAdapter.HeartClick {
+            override fun heartClick(view: View, position: Int) {
+                dataSource.switchLike(position)
+                (view as ImageView).switchHeart(contactAdapter.contactsList[position].isLike)
+            }
+        }
 
         return binding.root
     }

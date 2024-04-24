@@ -7,6 +7,7 @@ import com.example.contactapp.R
 import com.example.contactapp.data.ContactInformation
 import com.example.contactapp.data.contactList
 import com.example.contactapp.data.imageIdList
+import com.example.contactapp.presentation.ContactListFragment
 
 fun getContacts(context: Context): List<ContactInformation>{
     val contactsList = contactList
@@ -17,7 +18,6 @@ fun getContacts(context: Context): List<ContactInformation>{
     }
     return contactsList
 }
-
 
 fun ImageView.switchHeart (isLike: Boolean){
     if (isLike){
