@@ -29,18 +29,9 @@ class MyPageFragment : Fragment() {
     ): View {
         binding = FragmentMyPageBinding.inflate(inflater, container, false)
         with(binding) {
-            etEmail.apply {
-                setText(myContact.email)
-                isEnabled = false
-            }
-            etName.apply {
-                setText(myContact.name)
-                isEnabled = false
-            }
-            etPhoneNumber.apply {
-                setText(myContact.phoneNumber)
-                isEnabled = false
-            }
+            tvEmail.text = myContact.email
+            tvName.text = myContact.name
+            tvPhoneNumber.text = myContact.phoneNumber
             ivProfile.setBitmapProfile(myContact.imageRes)
         }
         return binding.root
