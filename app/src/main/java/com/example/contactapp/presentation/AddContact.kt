@@ -29,6 +29,16 @@ class AddContact : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = binding.root
+
+        var ivUser = binding.ivUser
+        var ivDelete = binding.ivDelete
+        var ivEdit = binding.ivEdit
+        var editName = binding.editName
+        var editEmail = binding.editEmail
+        var editPhoneNumber = binding.editPhoneNumber
+        var editRelationship = binding.editRelationship
+
+
         return view
     }
 
@@ -42,12 +52,12 @@ class AddContact : DialogFragment() {
 
         if (Build.VERSION.SDK_INT < 30) {
 
-            val display = windowManager.defaultDisplay
+            val display = windowManager.defaultDisplay //기기의 사이즈 정보
             val size = Point()
 
             display.getSize(size)
 
-            val window = dialogFragment.dialog?.window
+            val window = dialogFragment.dialog?.window //다이얼로그의 화면
 
             val x = (size.x * width).toInt()
             val y = (size.y * height).toInt()
