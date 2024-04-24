@@ -13,7 +13,7 @@ import android.view.ViewGroup
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import com.example.contactapp.R
+import com.example.contactapp.data.ContactInformation
 import com.example.contactapp.databinding.FragmentContactDetailBinding
 import com.example.contactapp.function.uriToBitmap
 
@@ -49,6 +49,8 @@ class ContactDetailFragment : Fragment() {
         setUpCall()
         setUpMessage()
         setUpProfile()
+
+
     }
 
     //전화
@@ -99,6 +101,22 @@ class ContactDetailFragment : Fragment() {
 //            selectedUri = null
 //            binding.ivProfile.setImageResource(R.drawable.ic_default_user)
         }
+    }
+
+    //Detail 각 위젯에 데이터 띄우기 위함
+    private fun inputEachData(data:ContactInformation){
+        binding.apply {
+            ivProfile.setImageBitmap(data.imageRes)
+            tvName.text = data.name
+            tvNumber.text = data.phoneNumber
+            tvEmail.text = data.email
+            tvRelationship.text = data.relationship
+        }
+    }
+
+    //데이터 삽입
+    private fun initData(){
+
     }
 
 
