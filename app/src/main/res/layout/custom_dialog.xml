@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/toolbar_grey"
@@ -44,17 +44,17 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/ivUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/toolBar"
         app:srcCompat="@drawable/ic_default_user" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -62,29 +62,29 @@
         android:text="@string/name"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/ivUser" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/ivDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintBottom_toBottomOf="@+id/ivUser"
+        app:layout_constraintStart_toEndOf="@+id/ivUser"
         app:srcCompat="@drawable/ic_delete" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/ivEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/imageView4"
+        app:layout_constraintBottom_toBottomOf="@+id/ivDelete"
+        app:layout_constraintStart_toEndOf="@+id/ivDelete"
+        app:layout_constraintTop_toTopOf="@+id/ivDelete"
         app:srcCompat="@drawable/id_rewrite" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/editName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -98,10 +98,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvPhoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -109,10 +109,10 @@
         android:text="@string/PhoneNumber"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintTop_toBottomOf="@+id/editName" />
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/editPhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -126,10 +126,10 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPhoneNumber" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -137,10 +137,10 @@
         android:text="@string/Email"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/editPhoneNumber" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/editEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -154,10 +154,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tvRelationship"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -165,10 +165,10 @@
         android:text="@string/Relationship"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/editEmail" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/editRelationship"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -181,7 +181,7 @@
         android:background="@drawable/text_edit_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRelationship" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
