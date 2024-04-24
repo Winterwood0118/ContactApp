@@ -18,9 +18,9 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tlTabs"
-        android:background="@color/toolbar_grey"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:background="@color/toolbar_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
