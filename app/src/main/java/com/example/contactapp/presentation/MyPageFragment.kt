@@ -29,7 +29,7 @@ class MyPageFragment : Fragment() {
             tvPhoneNumber.text = myContact.phoneNumber
             ivProfile.setBitmapProfile(myContact.imageRes)
             ivAdd.setOnClickListener {
-                AddContact(-1).show(requireActivity().supportFragmentManager, AddContact.TAG)
+//                AddContact(-1).show(requireActivity().supportFragmentManager, AddContact.TAG) todo
             }
         }
         return binding.root

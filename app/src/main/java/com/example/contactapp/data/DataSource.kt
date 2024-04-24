@@ -16,6 +16,10 @@ class DataSource {
     fun getContactList(context: Context) {
         itemList = getContacts(context).toMutableList()
     }
+    //추가
+    fun getDataList():MutableList<ContactInformation>{
+        return itemList
+    }
 
     fun addContact(contactInformation: ContactInformation){
         itemList.add(contactInformation)

@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import android.view.ViewGroup
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.os.BundleCompat.getParcelable
 import com.example.contactapp.data.ContactInformation
 import com.example.contactapp.databinding.FragmentContactDetailBinding
 import com.example.contactapp.function.uriToBitmap
@@ -32,7 +34,20 @@ class ContactDetailFragment : Fragment() {
 
 
     companion object {
+        //요청 코드
         private const val REQUEST_CALL_PERMISSION = 1
+
+        //방법 1
+        /*        private const val SELECTED_DATA = "selectedData"
+
+                fun newInstance(selectedData: ContactInformation): ContactDetailFragment {
+                    val fragment = ContactDetailFragment()
+                    val args = Bundle().apply {
+                        putParcelable(SELECTED_DATA, selectedData)
+                    }
+                    fragment.arguments = args
+                    return fragment
+                }*/
     }
 
 
@@ -50,7 +65,7 @@ class ContactDetailFragment : Fragment() {
         setUpMessage()
         setUpProfile()
 
-
+        initData()
     }
 
     //전화
@@ -97,14 +112,14 @@ class ContactDetailFragment : Fragment() {
         }
         binding.ivDelete.setOnClickListener {
             val dialog = AddContact()
-            dialog.show(childFragmentManager,AddContact.TAG)
+            dialog.show(childFragmentManager, AddContact.TAG)
 //            selectedUri = null
 //            binding.ivProfile.setImageResource(R.drawable.ic_default_user)
         }
     }
 
     //Detail 각 위젯에 데이터 띄우기 위함
-    private fun inputEachData(data:ContactInformation){
+    private fun inputEachData(data: ContactInformation) {
         binding.apply {
             ivProfile.setImageBitmap(data.imageRes)
             tvName.text = data.name
@@ -115,8 +130,17 @@ class ContactDetailFragment : Fragment() {
     }
 
     //데이터 삽입
-    private fun initData(){
-
+    private fun initData() {
+        if (Build.VERSION.SDK_INT >= 33) { //33이상
+            arguments?.getParcelable("selectedData", ContactInformation::class.java)?.let {
+                inputEachData(it)
+            }
+        } else {
+            // API 레벨이 33 미만인 경우
+            arguments?.getParcelable<ContactInformation>("selectedData")?.let { selectedData ->
+                inputEachData(selectedData)
+            }
+        }
     }
 
 

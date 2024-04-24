@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.contactapp.R
 import com.example.contactapp.data.DataSource
 import com.example.contactapp.databinding.FragmentContactListBinding
 import com.example.contactapp.function.FragmentDataListener
@@ -60,10 +61,35 @@ class ContactListFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
         }
 
+/*        //방법1
         contactAdapter.itemClick = object : ContactListAdapter.ItemClick {
             override fun itemClick(view: View, position: Int) {
-                val detailData = contactAdapter.contactsList[position]
-                listener?.onDataReeived(detailData)
+                val selectedData = dataSource.itemList[position]
+                val detailFragment = ContactDetailFragment.newInstance(selectedData)
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.frameLayout, detailFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }*/
+
+
+        //방법2 -bundle
+        contactAdapter.itemClick = object : ContactListAdapter.ItemClick {
+            override fun itemClick(view: View, position: Int) {
+                val selectedData = dataSource.getDataList()[position]
+
+                val detailFragment = ContactDetailFragment().apply {
+                    arguments = Bundle().apply {
+                        putParcelable("selectedData", selectedData)
+                        putInt("selectedPosition", position)
+                    }
+                }
+                requireActivity().supportFragmentManager.beginTransaction().apply {
+                    replace(R.id.frameLayout, detailFragment)
+                    addToBackStack(null)
+                    commit()
+                }
             }
         }
 
