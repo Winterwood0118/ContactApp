@@ -1,8 +1,11 @@
 package com.example.contactapp.presentation
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -20,7 +23,8 @@ import androidx.core.os.BundleCompat.getParcelable
 import com.example.contactapp.R
 import com.example.contactapp.data.ContactInformation
 import com.example.contactapp.databinding.FragmentContactDetailBinding
-import com.example.contactapp.function.uriToBitmap
+import com.example.contactapp.function.setBitmapProfile
+import java.io.IOException
 
 class ContactDetailFragment : Fragment(), AddContact.ContactDetailUpdateListener {
     private var selectedUri: Uri? = null
@@ -163,12 +167,14 @@ class ContactDetailFragment : Fragment(), AddContact.ContactDetailUpdateListener
         _binding = null
     }
 
-    override fun onContactDetailUpdated(name: String, email: String, phoneNumber: String, relationShip: String) {
+    override fun onContactDetailUpdated(name: String, email: String, phoneNumber: String, relationShip: String,profile:Bitmap) {
         binding.apply {
             tvName.text = name
             tvEmail.text = email
             tvNumber.text = phoneNumber
             tvRelationship.text = relationShip
+            //profile
+
         }
     }
 
@@ -178,6 +184,7 @@ class ContactDetailFragment : Fragment(), AddContact.ContactDetailUpdateListener
         val updateEmail = binding.tvEmail.text.toString()
         val updatePhoneNumber = binding.tvNumber.text.toString()
         val updateRelationship = binding.tvRelationship.text.toString()
+        //이미지 가져오기
         binding.ivUpdate.setOnClickListener {
 
 
@@ -203,6 +210,7 @@ class ContactDetailFragment : Fragment(), AddContact.ContactDetailUpdateListener
         val updatePhoneNumber = binding.tvNumber.text.toString()
         val updateRelationship = binding.tvRelationship.text.toString()
 
+
         if (selectedPosition != null) {
             val bundle = Bundle().apply {
                 putInt("selectedPosition", selectedPosition)
@@ -212,6 +220,15 @@ class ContactDetailFragment : Fragment(), AddContact.ContactDetailUpdateListener
                 putString("updateRelationship", updateRelationship)
             }
             parentFragmentManager.setFragmentResult("updateData", bundle)
+        }
+    }
+    private fun uriToBitmap(context: Context, uri: Uri): Bitmap? {
+        return try {
+            val inputStream = context.contentResolver.openInputStream(uri)
+            BitmapFactory.decodeStream(inputStream)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            null
         }
     }
 
