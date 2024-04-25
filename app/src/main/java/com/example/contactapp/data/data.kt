@@ -77,10 +77,3 @@ val imageIdList = listOf(
     R.drawable.img_stukov,
     R.drawable.img_abathur
 )
-
-val myContact = ContactInformation(
-    name = "홍길동",
-    phoneNumber = "010-5536-8898",
-    email = "eastwest@flash.com",
-    relationship = "본인"
-)
