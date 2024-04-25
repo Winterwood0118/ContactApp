@@ -176,5 +176,25 @@
         app:layout_constraintTop_toBottomOf="@id/relationship"
         tools:text="abced" />
 
+    <TextView
+        android:id="@+id/callLog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Call Log"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvRelationship" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:listitem="@layout/call_log_item"
+        app:layout_constraintTop_toBottomOf="@id/callLog"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
