@@ -12,6 +12,15 @@ import androidx.fragment.app.DialogFragment
 import com.example.contactapp.databinding.CustomDialogBinding
 
 class AddContact : DialogFragment() {
+    //추가
+    interface ContactDetailUpdateListener{
+        fun onContactDetailUpdated(name:String,email:String,phoneNumber: String,relationShip:String)
+    }
+    private lateinit var listener: ContactDetailUpdateListener
+    private var updateName: String = ""
+    private var updateEmail: String = ""
+    private var updatePhoneNumber: String = ""
+    private var updateRelationship: String = ""
 
     override fun onResume() {
         super.onResume()
@@ -43,7 +52,7 @@ class AddContact : DialogFragment() {
     }
 
     companion object{
-        const val TAG = "PurchaseConfirmationDialog"
+        const val TAG = "ContactDetailUpdate" //tag
     }
 
     //화면 사이즈 구하기
@@ -73,6 +82,31 @@ class AddContact : DialogFragment() {
             val y = (rect.height() * height).toInt()
 
             window?.setLayout(x, y)
+        }
+    }
+
+    fun setListener(update: ContactDetailUpdateListener){ //todo 이름 수정
+        this.listener = update
+    }
+
+    //추가
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.ivConfirm.setOnClickListener {
+//                ivUser //todo 이미지 변경
+            binding.apply {//todo 예외처리
+                updateName = editName.text.toString()
+                updateEmail = editEmail.text.toString()
+                updatePhoneNumber = editPhoneNumber.text.toString()
+                updateRelationship = editRelationship.text.toString()
+            }
+            listener.onContactDetailUpdated(updateName,updateEmail,updatePhoneNumber,updateRelationship)
+            dismiss()
+        }
+
+        binding.ivReturn.setOnClickListener {
+            dismiss()
         }
     }
 }

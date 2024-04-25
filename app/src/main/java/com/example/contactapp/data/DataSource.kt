@@ -4,33 +4,34 @@ import android.content.Context
 import com.example.contactapp.function.getContacts
 
 class DataSource {
-    companion object{
+    companion object {
         private var INSTANCE: DataSource? = null
-        fun getInstance(): DataSource{
-            return INSTANCE?: DataSource().apply { INSTANCE = this }
+        fun getInstance(): DataSource {
+            return INSTANCE ?: DataSource().apply { INSTANCE = this }
         }
 
     }
+
     var itemList = mutableListOf<ContactInformation>()
 
     fun getContactList(context: Context) {
         itemList = getContacts(context).toMutableList()
     }
+
     //추가
-    fun getDataList():MutableList<ContactInformation>{
+    fun getDataList(): MutableList<ContactInformation> {
         return itemList
     }
-    fun updateContact(position: Int, updatedContact: ContactInformation) {
-        if (position in 0 until itemList.size) {
-            itemList[position] = updatedContact
-        }
+
+    fun updateContact(position: Int, updatedContact: ContactInformation) { //todo 예외처리 여기서??
+        itemList[position] = updatedContact
     }
 
-    fun addContact(contactInformation: ContactInformation){
+    fun addContact(contactInformation: ContactInformation) {
         itemList.add(contactInformation)
     }
 
-    fun deleteContact(contactInformation: ContactInformation){
+    fun deleteContact(contactInformation: ContactInformation) {
         itemList.remove(contactInformation)
     }
 

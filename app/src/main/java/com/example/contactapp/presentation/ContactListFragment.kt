@@ -26,6 +26,7 @@ class ContactListFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    //    private lateinit var adapter: ContactListAdapter
     private val binding by lazy { FragmentContactListBinding.inflate(layoutInflater) }
 
     private var listener: FragmentDataListener? = null
@@ -114,4 +115,43 @@ class ContactListFragment : Fragment() {
                 }
             }
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        //Detail 값 받아와서 적용
+        parentFragmentManager.setFragmentResultListener("updateData", this) { _, bundle ->
+            //
+            val position = bundle.getInt("selectedPosition")
+            val updateName = bundle.getString("updateName")
+            val updateEmail = bundle.getString("updateEmail")
+            val updatePhoneNumber = bundle.getString("updatePhoneNumber")
+            val updateRelationship = bundle.getString("updateRelationship")
+
+            updateSelectedDate(position, updateName!!, updateEmail!!, updatePhoneNumber!!, updateRelationship!!)
+            Log.d("main","$position $updateName")
+        }
+    }
+
+    //데이터 수정
+    private fun updateSelectedDate(
+        position: Int,
+        updateName: String,
+        updateEmail: String,
+        updatePhoneNumber: String,
+        updateRelationship: String
+    ) {
+        val dataList = DataSource.getInstance().getDataList()
+        val updateData = dataList[position] //position 위치의 데이터 가져오기
+
+        updateData.name = updateName
+        updateData.email = updateEmail
+        updateData.phoneNumber = updatePhoneNumber
+        updateData.relationship = updateRelationship
+
+        DataSource.getInstance().updateContact(position, updateData) //변경된 데이터를 데이터 소스에 다시 저장
+        binding.recyclerView.adapter?.notifyItemChanged(position)
+    }
+
+
 }
