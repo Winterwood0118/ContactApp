@@ -13,6 +13,12 @@ class DataSource {
     }
     var itemList = mutableListOf<ContactInformation>()
 
+    var myContact = ContactInformation(
+        name = "홍길동",
+        phoneNumber = "010-5536-8898",
+        email = "eastwest@flash.com",
+        relationship = "본인"
+    )
     fun getContactList(context: Context) {
         itemList = getContacts(context).toMutableList()
     }
