@@ -56,5 +56,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     //프로필 이미지
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }

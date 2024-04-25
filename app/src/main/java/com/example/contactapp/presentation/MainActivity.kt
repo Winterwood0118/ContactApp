@@ -1,11 +1,13 @@
 package com.example.contactapp.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.contactapp.R
+import com.example.contactapp.data.DataSource
 import com.example.contactapp.databinding.ActivityMainBinding
 import com.example.contactapp.function.FragmentViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -36,5 +38,20 @@ class MainActivity : AppCompatActivity() {
                 1 -> tab.text = "MY PAGE"
             }
         }.attach()
+
+        val dataSource = DataSource.getInstance()
+        var myContact = dataSource.myContact
+
+        binding.fab.setOnClickListener {
+            val addDialog = AddContact(-5)
+            addDialog.setOnDialogDismissListener(object : AddContact.OnDialogDismissListener{
+                override fun onDialogDismissed() {
+//                    myContact = dataSource.myContact
+                    Log.d("contact","$myContact")
+                    viewPager.adapter?.notifyDataSetChanged()
+                }
+            })
+            addDialog.show(supportFragmentManager, AddContact.TAG)
+        }
     }
 }
