@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.contactapp.R
 import com.example.contactapp.data.CallInformation
 
-class CallLogAdapter(var callLog: List<CallInformation>) :
+class CallLogAdapter(private var callLog: List<CallInformation>) :
     RecyclerView.Adapter<CallLogAdapter.CallLogViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CallLogViewHolder {
