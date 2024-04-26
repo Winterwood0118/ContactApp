@@ -39,5 +39,16 @@ class MainActivity : AppCompatActivity() {
             }
         }.attach()
 
+        binding.fab.setOnClickListener {
+            val addDialog = AddContact(-5)
+            addDialog.setOnDialogDismissListener(object : AddContact.OnDialogDismissListener {
+                override fun onDialogDismissed() {
+                    val fragment = FragmentViewPagerAdapter(this@MainActivity)
+                    fragment.refreshListFragment()
+                }
+            })
+            addDialog.show(supportFragmentManager, AddContact.TAG)
+        }
+
     }
 }
