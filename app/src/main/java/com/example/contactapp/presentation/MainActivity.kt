@@ -2,9 +2,6 @@ package com.example.contactapp.presentation
 
 import android.os.Bundle
 import android.util.Log
-import android.view.DragAndDropPermissions
-import android.view.MotionEvent
-import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
