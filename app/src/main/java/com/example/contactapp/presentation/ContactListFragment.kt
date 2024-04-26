@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.PopupMenu
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -65,10 +66,10 @@ class ContactListFragment : Fragment() {
         dataSource.getContactList(requireActivity())
         contactAdapter.contactsList = dataSource.itemList
 
-        val toolbar = binding.toolbar
-        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        toolbar.title = "3조 연락처 앱"
+//        val toolbar = binding.toolbar
+//        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+//        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+//        toolbar.title = "3조 연락처 앱"
 
         binding.recyclerView.apply {
             adapter = contactAdapter
@@ -94,6 +95,11 @@ class ContactListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.ibOption.setOnClickListener {
+            val popupMenu = PopupMenu(requireContext(),it)
+            popupMenu.menuInflater.inflate(R.menu.popup_menu,popupMenu.menu)
+            popupMenu.show()
+        }
     }
 
     // 작동 안함
