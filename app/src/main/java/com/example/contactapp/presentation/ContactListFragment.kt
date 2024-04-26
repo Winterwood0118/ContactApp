@@ -69,7 +69,7 @@ class ContactListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.ibOption.setOnClickListener {
+        binding.ivOption.setOnClickListener {
             val popupMenu = PopupMenu(requireContext(),it)
             popupMenu.menuInflater.inflate(R.menu.popup_menu,popupMenu.menu)
             popupMenu.show()
@@ -90,13 +90,6 @@ class ContactListFragment : Fragment() {
                     }
                 }
             }
-        }
-    
-
-        binding.ivOption.setOnClickListener {
-            val popupMenu = PopupMenu(requireContext(), it)
-            popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
-            popupMenu.show()
         }
 
         //Detail 값 받아와서 적용
