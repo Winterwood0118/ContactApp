@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,8 +30,6 @@ class AddContact(private val position: Int) : DialogFragment() {
             //uri -> bitMap으로 변경
             val imageBitmap = uriToBitmap(requireContext(), uri)
             binding.ivUser.setImageBitmap(imageBitmap)
-        } else {
-            Log.d("PhotoPicker", "No media selected") //todo 이미지 선택하지 않을 경우(알림추가?)
         }
     }
     interface OnContactAddedListener {
@@ -156,7 +153,13 @@ class AddContact(private val position: Int) : DialogFragment() {
         }
 
 
-        //todo 이미지 변경
+        setUpProfile()
+
+        return binding.root
+    }
+
+    //이미지 선택
+    private fun setUpProfile() {
         binding.ivEdit.setOnClickListener {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
@@ -164,9 +167,8 @@ class AddContact(private val position: Int) : DialogFragment() {
             selectedUri = null
             binding.ivUser.setImageResource(R.drawable.ic_default_user)
         }
-
-        return binding.root
     }
+
     override fun onDetach() {
         super.onDetach()
         contactAddedListener = null
