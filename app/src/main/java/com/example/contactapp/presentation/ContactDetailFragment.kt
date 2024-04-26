@@ -36,8 +36,6 @@ class ContactDetailFragment : Fragment(),AddContact.OnContactAddedListener {
         private const val REQUEST_CALL_PERMISSION = 1 //요청 코드
     }
 
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentContactDetailBinding.inflate(inflater, container, false)
         return binding.root
