@@ -1,6 +1,7 @@
 package com.example.contactapp.data
 
 import android.content.Context
+import android.util.Log
 import com.example.contactapp.function.getContacts
 
 class DataSource {
@@ -35,6 +36,7 @@ class DataSource {
 
     fun addContact(contactInformation: ContactInformation) {
         itemList.add(contactInformation)
+        Log.d("데이터 확인","$itemList")
     }
 
     fun deleteContact(contactInformation: ContactInformation) {
