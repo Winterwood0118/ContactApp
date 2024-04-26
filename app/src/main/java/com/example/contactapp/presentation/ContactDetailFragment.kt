@@ -30,7 +30,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-//todo 정보 수정했을 때만 update
+//todo 수정1)정보 수정했을 때만 update
+//todo 수정2)전화 기록 update 문제
 class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
     private lateinit var callLogAdapter: CallLogAdapter
     private var _binding: FragmentContactDetailBinding? = null
@@ -130,6 +131,7 @@ class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
         _binding = null
     }
 
+    //데이터 수정 (Dialog 띄우기)
     private fun changeData() {
         binding.ivUpdate.setOnClickListener {
             val selectedPosition = arguments?.getInt("selectedPosition")
@@ -141,8 +143,8 @@ class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
         }
     }
 
-    //todo 변경될 값이 있을 경우에만 update
     //main 정보 전달
+    // todo 수정1
     private fun updateData() {
         val selectedPosition = arguments?.getInt("selectedPosition") //position 값
         val updateName = binding.tvName.text.toString()
@@ -190,7 +192,7 @@ class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
         binding.recyclerView.adapter = callLogAdapter
 
 
-        //todo 수정 필요
+        //todo 수정2
         //DetailFragment에서 전화를 걸었을 때 실시간으로 RecyclerView가 변경되기 위한 코루틴 - CoroutineScope 생성
         lifecycleScope.launch {//lifecycle 사용하면 생명주기를 인식하는 코루틴 생성 가능
             while (true) {
