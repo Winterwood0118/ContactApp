@@ -1,10 +1,7 @@
 package com.example.contactapp.presentation
 
 import android.content.DialogInterface
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.Point
-import android.os.Build
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,16 +9,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
+import com.example.contactapp.R
 import com.example.contactapp.data.ContactInformation
 import com.example.contactapp.data.DataSource
 import com.example.contactapp.databinding.CustomDialogBinding
 import com.example.contactapp.function.setBitmapProfile
+import com.example.contactapp.function.uriToBitmap
 import java.util.regex.Pattern
 
 class AddContact(private val position: Int) : DialogFragment() {
+    private var selectedUri: Uri? = null
+    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        if (uri != null) { //이미지를 선택할 경우
+            selectedUri = uri
+            val imageBitmap = uriToBitmap(requireContext(), uri)//uri -> bitMap으로 변경
+            binding.ivUser.setImageBitmap(imageBitmap)
+        }
+    }
     interface OnContactAddedListener {
         fun onContactAdded(contactInfo: ContactInformation)
     }
@@ -141,8 +150,24 @@ class AddContact(private val position: Int) : DialogFragment() {
         binding.ivReturn.setOnClickListener {
             dismiss()
         }
+
+
+        setUpProfile()
+
         return binding.root
     }
+
+    //이미지 선택
+    private fun setUpProfile() {
+        binding.ivEdit.setOnClickListener {
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
+        binding.ivDelete.setOnClickListener {
+            selectedUri = null
+            binding.ivUser.setImageResource(R.drawable.ic_default_user)
+        }
+    }
+
     override fun onDetach() {
         super.onDetach()
         contactAddedListener = null
@@ -159,5 +184,4 @@ class AddContact(private val position: Int) : DialogFragment() {
     companion object {
         const val TAG = "PurchaseConfirmationDialog"
     }
-
 }
