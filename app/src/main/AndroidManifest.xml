@@ -8,7 +8,9 @@
 
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.INTERNET"/>
+
 
     <application
         android:allowBackup="true"
@@ -24,8 +26,6 @@
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true">
-            <meta-data android:name="android.app.searchable"
-                android:resource="@xml/searchable"/>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,16 +1,18 @@
 package com.example.contactapp.data
 
 import android.content.Context
+import android.util.Log
 import com.example.contactapp.function.getContacts
 
 class DataSource {
-    companion object{
+    companion object {
         private var INSTANCE: DataSource? = null
-        fun getInstance(): DataSource{
-            return INSTANCE?: DataSource().apply { INSTANCE = this }
+        fun getInstance(): DataSource {
+            return INSTANCE ?: DataSource().apply { INSTANCE = this }
         }
 
     }
+
     var itemList = mutableListOf<ContactInformation>()
 
     var myContact = ContactInformation(
@@ -23,11 +25,21 @@ class DataSource {
         itemList = getContacts(context).toMutableList()
     }
 
-    fun addContact(contactInformation: ContactInformation){
-        itemList.add(contactInformation)
+    //todo 수정
+    fun getDataList(): MutableList<ContactInformation> {
+        return itemList
     }
 
-    fun deleteContact(contactInformation: ContactInformation){
+    fun updateContact(position: Int, updatedContact: ContactInformation) {
+        itemList[position] = updatedContact
+    }
+
+    fun addContact(contactInformation: ContactInformation) {
+        itemList.add(contactInformation)
+        Log.d("데이터 확인","$itemList")
+    }
+
+    fun deleteContact(contactInformation: ContactInformation) {
         itemList.remove(contactInformation)
     }
 
