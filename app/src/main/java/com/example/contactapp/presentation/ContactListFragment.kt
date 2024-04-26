@@ -8,7 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.PopupMenu
+import android.widget.SearchView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.contactapp.R
 import com.example.contactapp.data.DataSource
 import com.example.contactapp.databinding.FragmentContactListBinding
@@ -26,6 +32,7 @@ class ContactListFragment : Fragment() {
         val dataSource = DataSource.getInstance()
         dataSource.getContactList(requireActivity())
         contactAdapter.contactsList = dataSource.itemList
+      
         binding.recyclerView.apply {
             adapter = contactAdapter
             layoutManager = LinearLayoutManager(context)
@@ -62,6 +69,29 @@ class ContactListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.ibOption.setOnClickListener {
+            val popupMenu = PopupMenu(requireContext(),it)
+            popupMenu.menuInflater.inflate(R.menu.popup_menu,popupMenu.menu)
+            popupMenu.show()
+            popupMenu.setOnMenuItemClickListener {
+                when(it.itemId) {
+                    R.id.gridType -> {
+                        // gridManager
+                        binding.recyclerView.layoutManager = GridLayoutManager(context,4)
+                        return@setOnMenuItemClickListener true
+                    }
+                    R.id.listType -> {
+                        // listManager
+                        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+                        return@setOnMenuItemClickListener true
+                    }
+                    else -> {
+                        return@setOnMenuItemClickListener false
+                    }
+                }
+            }
+        }
+    
 
         binding.ivOption.setOnClickListener {
             val popupMenu = PopupMenu(requireContext(), it)

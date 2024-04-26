@@ -7,8 +7,6 @@
     tools:context=".presentation.ContactListFragment"
     android:background="@color/white">
 
-
-
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="wrap_content"
