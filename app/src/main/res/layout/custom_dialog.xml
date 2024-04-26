@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/toolbar_grey"
-        android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -180,7 +179,8 @@
         android:background="@drawable/text_edit_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRelationship" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRelationship"
+        android:layout_marginBottom="10dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
