@@ -31,10 +31,8 @@ class MainActivity : AppCompatActivity() {
         // tab layout 과 view pager2 연동하는 코드입니다.
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             when (position) {
-//                0 -> tab.text = R.string.tab_left.toString() // 전부 대문자로 하는거 맞나요?
-//                1 -> tab.text = R.string.tab_right.toString() // string 데이터 이렇게 가져오는게 맞나요?
-                0 -> tab.text = "CONTACT LIST" // 값이 제대로 안가져와서 일단 이렇게 만들었어요.
-                1 -> tab.text = "MY PAGE"
+                0 -> tab.setText(R.string.tab_left)
+                1 -> tab.setText(R.string.tab_right)
             }
         }.attach()
 
