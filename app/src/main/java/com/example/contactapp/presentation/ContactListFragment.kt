@@ -48,8 +48,15 @@ class ContactListFragment : Fragment() {
                         putInt("selectedPosition", position)
                     }
                 }
+                detailFragment.setOnDetailDestroyedListener(
+                    object : ContactDetailFragment.OnDetailDestroyedListener{
+                        override fun onDetailDestroyed() {
+
+                        }
+                    }
+                )
                 requireActivity().supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.frameLayout, detailFragment)
+                    replace(android.R.id.content, detailFragment)
                     addToBackStack(null)
                     commit()
                     //binding.searchView.visibility = View.GONE //todo searchView 가리기 - 나타나기 구현
