@@ -58,5 +58,5 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:4.14.1")
 
     //프로필 이미지
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }
