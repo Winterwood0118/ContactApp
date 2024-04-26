@@ -14,16 +14,22 @@ class DataSource {
 
     var itemList = mutableListOf<ContactInformation>()
 
+    var myContact = ContactInformation(
+        name = "홍길동",
+        phoneNumber = "010-5536-8898",
+        email = "eastwest@flash.com",
+        relationship = "본인"
+    )
     fun getContactList(context: Context) {
         itemList = getContacts(context).toMutableList()
     }
 
-    //추가
+    //todo 수정
     fun getDataList(): MutableList<ContactInformation> {
         return itemList
     }
 
-    fun updateContact(position: Int, updatedContact: ContactInformation) { //todo 예외처리 여기서??
+    fun updateContact(position: Int, updatedContact: ContactInformation) {
         itemList[position] = updatedContact
     }
 

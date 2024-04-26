@@ -6,16 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.contactapp.data.ContactInformation
-import com.example.contactapp.data.myContact
+import com.example.contactapp.data.DataSource
 import com.example.contactapp.databinding.FragmentMyPageBinding
 import com.example.contactapp.function.setBitmapProfile
 
 class MyPageFragment : Fragment() {
     private lateinit var binding: FragmentMyPageBinding
-
-
+    lateinit var dataSource: DataSource
+    lateinit var myContact: ContactInformation
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        dataSource = DataSource.getInstance()
+        myContact = dataSource.myContact
     }
 
     override fun onCreateView(
@@ -23,20 +25,45 @@ class MyPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMyPageBinding.inflate(inflater, container, false)
+        viewDataUpdate()
+        setClickListener()
+        return binding.root
+    }
+
+    private fun viewDataUpdate(){
+        myContact = dataSource.myContact
         with(binding) {
             tvEmail.text = myContact.email
             tvName.text = myContact.name
             tvPhoneNumber.text = myContact.phoneNumber
             ivProfile.setBitmapProfile(myContact.imageRes)
+        }
+    }
+
+    private fun setClickListener(){
+        with(binding) {
             ivAdd.setOnClickListener {
-//                AddContact(-1).show(requireActivity().supportFragmentManager, AddContact.TAG)
+                val addDialog = AddContact(-5)
+                addDialog.setOnDialogDismissListener(object : AddContact.OnDialogDismissListener{
+                    override fun onDialogDismissed() {
+                        viewDataUpdate()
+                    }
+                })
+                addDialog.show(parentFragmentManager, AddContact.TAG)
+            }
+            ivRewrite.setOnClickListener {
+                val editDialog = AddContact(-1)
+                editDialog.setOnDialogDismissListener(object : AddContact.OnDialogDismissListener{
+                    override fun onDialogDismissed() {
+                        viewDataUpdate()
+                    }
+                })
+                editDialog.show(parentFragmentManager, AddContact.TAG)
             }
         }
-        return binding.root
     }
 
     companion object {
-
         @JvmStatic
         fun newInstance() = MyPageFragment()
     }
