@@ -23,7 +23,37 @@ import com.example.contactapp.function.switchHeart
 
 class ContactListFragment : Fragment() {
     private val binding by lazy { FragmentContactListBinding.inflate(layoutInflater) }
+
+    private var listener: FragmentDataListener? = null
+
+//    override fun onAttach(context : Context) {
+//        super.onAttach(context)
+//
+//        if (context is FragmentDataListener) {
+//            listener = context
+//        } else {
+//            throw RuntimeException("$context must implement FragmentDataListener")
+//        }
+//    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+        setHasOptionsMenu(true)
+        val toolbar = binding.toolbar
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.title = "3조 연락처 앱"
+        toolbar.setTitleTextColor(resources.getColor(R.color.black))
+
+    }
+
+
     lateinit var contactAdapter: ContactListAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,33 +97,39 @@ class ContactListFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.ivOption.setOnClickListener {
-            val popupMenu = PopupMenu(requireContext(), it)
-            popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
-            popupMenu.show()
-            popupMenu.setOnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.gridType -> {
-                        // gridManager
-                        binding.recyclerView.layoutManager = GridLayoutManager(context, 4)
-                        return@setOnMenuItemClickListener true
-                    }
 
-                    R.id.listType -> {
-                        // listManager
-                        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-                        return@setOnMenuItemClickListener true
-                    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
-                    else -> {
-                        return@setOnMenuItemClickListener false
-                    }
-                }
-            }
-        }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_option -> {
+                val popupMenu = PopupMenu(requireContext(), binding.toolbar.findViewById(R.id.action_option))
+                popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
+                popupMenu.show()
+                popupMenu.setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.gridType -> {
+                            // gridManager
+                            binding.recyclerView.apply {
+                                layoutManager = GridLayoutManager(context, 4)
+                            }
+                            return@setOnMenuItemClickListener true
+                        }
 
+                        R.id.listType -> {
+                            // listManager
+                            binding.recyclerView.layoutManager = LinearLayoutManager(context)
+                            return@setOnMenuItemClickListener true
+                        }
+
+                        else -> {
+                            return@setOnMenuItemClickListener false
+                        }
+
+    
         //Detail 값 받아와서 적용
         parentFragmentManager.setFragmentResultListener("updateData", this)
         { _, bundle ->
