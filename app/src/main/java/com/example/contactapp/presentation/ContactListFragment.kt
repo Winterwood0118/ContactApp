@@ -16,7 +16,9 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.contactapp.R
 import com.example.contactapp.data.DataSource
 import com.example.contactapp.databinding.FragmentContactListBinding
@@ -66,11 +68,6 @@ class ContactListFragment : Fragment() {
         dataSource.getContactList(requireActivity())
         contactAdapter.contactsList = dataSource.itemList
 
-//        val toolbar = binding.toolbar
-//        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-//        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-//        toolbar.title = "3조 연락처 앱"
-
         binding.recyclerView.apply {
             adapter = contactAdapter
             layoutManager = LinearLayoutManager(context)
@@ -99,6 +96,23 @@ class ContactListFragment : Fragment() {
             val popupMenu = PopupMenu(requireContext(),it)
             popupMenu.menuInflater.inflate(R.menu.popup_menu,popupMenu.menu)
             popupMenu.show()
+            popupMenu.setOnMenuItemClickListener {
+                when(it.itemId) {
+                    R.id.gridType -> {
+                        // gridManager
+                        binding.recyclerView.layoutManager = GridLayoutManager(context,4)
+                        return@setOnMenuItemClickListener true
+                    }
+                    R.id.listType -> {
+                        // listManager
+                        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+                        return@setOnMenuItemClickListener true
+                    }
+                    else -> {
+                        return@setOnMenuItemClickListener false
+                    }
+                }
+            }
         }
     }
 
