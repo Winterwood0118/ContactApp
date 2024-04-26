@@ -17,7 +17,6 @@
         app:layout_constraintStart_toEndOf="@+id/ivDelete"
         app:layout_constraintTop_toTopOf="@+id/ivDelete" />
 
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivProfile"
         android:layout_width="140dp"
@@ -46,7 +45,6 @@
         android:ems="10"
         android:gravity="center"
         android:padding="10dp"
-        android:text="홍길동"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -59,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
-        android:text="Phone Number"
+        android:text="@string/phoneNumber"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvName" />
@@ -83,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
-        android:text="Email"
+        android:text="@string/email"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPhoneNumber" />
