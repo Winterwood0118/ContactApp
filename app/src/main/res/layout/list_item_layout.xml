@@ -7,16 +7,13 @@
     android:background="@color/white">
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivProfile"
         android:layout_width="70dp"
         android:layout_height="70dp"
         tools:src="@drawable/img_jim"
         android:layout_margin="10dp"
-        android:background="@drawable/background_circle"
         android:scaleType="centerCrop"
-        android:clipToOutline="true"
-
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
