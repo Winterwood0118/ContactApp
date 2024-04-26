@@ -37,6 +37,11 @@ android {
     viewBinding{
         enable = true
     }
+
+    // 버전이 달라서 새로 만들었습니다! (세영)
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -49,4 +54,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("com.github.bumptech.glide:glide:4.14.1")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.14.1")
+
+    //프로필 이미지
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 }
