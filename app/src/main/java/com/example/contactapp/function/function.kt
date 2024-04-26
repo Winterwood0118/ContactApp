@@ -9,6 +9,7 @@ import com.example.contactapp.R
 import com.example.contactapp.data.contactList
 import com.example.contactapp.data.imageIdList
 import android.net.Uri
+import com.bumptech.glide.Glide
 import com.example.contactapp.data.ContactInformation
 import java.io.IOException
 

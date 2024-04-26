@@ -1,5 +1,6 @@
 package com.example.contactapp.data
 
+import com.bumptech.glide.Glide
 import com.example.contactapp.R
 
 val contactList = listOf(
@@ -77,3 +78,5 @@ val imageIdList = listOf(
     R.drawable.img_stukov,
     R.drawable.img_abathur
 )
+
+

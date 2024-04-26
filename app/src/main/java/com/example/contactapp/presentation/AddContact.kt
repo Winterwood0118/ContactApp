@@ -32,7 +32,6 @@ class AddContact(private val position: Int) : DialogFragment() {
         contactAddedListener = listener
     }
 
-    //todo 시도 -위에 추가
     interface OnDialogDismissListener{
         fun onDialogDismissed()
     }
@@ -91,7 +90,7 @@ class AddContact(private val position: Int) : DialogFragment() {
                         dataSource.itemList[position] = resultContact
                     }
 
-                    contactAddedListener?.onContactAdded(resultContact) //todo 시도
+                    contactAddedListener?.onContactAdded(resultContact)
                     dismiss()
                 }
 
@@ -107,7 +106,7 @@ class AddContact(private val position: Int) : DialogFragment() {
                         relationship = editRelationship.text.toString()
                     )
                     dataSource.addContact(resultContact)
-                    contactAddedListener?.onContactAdded(resultContact) //todo 시도
+                    contactAddedListener?.onContactAdded(resultContact)
                     dismiss()
                 }
             }
@@ -120,7 +119,7 @@ class AddContact(private val position: Int) : DialogFragment() {
 
         return binding.root
     }
-    override fun onDetach() { //todo 시도
+    override fun onDetach() {
         super.onDetach()
         contactAddedListener = null
     }

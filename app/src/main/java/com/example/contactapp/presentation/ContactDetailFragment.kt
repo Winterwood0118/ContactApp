@@ -3,11 +3,9 @@ package com.example.contactapp.presentation
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.CallLog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +18,6 @@ import com.example.contactapp.data.CallInformation
 import com.example.contactapp.data.ContactInformation
 import com.example.contactapp.data.DataSource
 import com.example.contactapp.databinding.FragmentContactDetailBinding
-import com.example.contactapp.function.setBitmapProfile
 import com.example.contactapp.presentation.call_log.CallLogAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -32,25 +29,11 @@ import java.util.Locale
 //todo 정보 수정했을 때만 update
 class ContactDetailFragment : Fragment(),AddContact.OnContactAddedListener {
     private lateinit var callLogAdapter: CallLogAdapter
-    private lateinit var dataSource: DataSource
     private var _binding: FragmentContactDetailBinding? = null
     private val binding get() = _binding!!
 
     companion object {
-        //요청 코드
-        private const val REQUEST_CALL_PERMISSION = 1
-
-        //방법 1
-        /*        private const val SELECTED_DATA = "selectedData"
-
-                fun newInstance(selectedData: ContactInformation): ContactDetailFragment {
-                    val fragment = ContactDetailFragment()
-                    val args = Bundle().apply {
-                        putParcelable(SELECTED_DATA, selectedData)
-                    }
-                    fragment.arguments = args
-                    return fragment
-                }*/
+        private const val REQUEST_CALL_PERMISSION = 1 //요청 코드
     }
 
 
@@ -126,17 +109,6 @@ class ContactDetailFragment : Fragment(),AddContact.OnContactAddedListener {
         }
     }
 
-    //photo picker 사용해서 이미지 선택
-    /*    private fun setUpProfile() {
-            binding.ivAdd.setOnClickListener {
-                pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-            }
-            binding.ivDelete.setOnClickListener {
-                selectedUri = null
-                binding.ivProfile.setImageResource(R.drawable.ic_default_user)
-            }
-        }*/
-
     //Detail 각 위젯에 데이터 띄우기 위함
     private fun inputEachData(data: ContactInformation) {
         binding.apply {
@@ -172,20 +144,7 @@ class ContactDetailFragment : Fragment(),AddContact.OnContactAddedListener {
         _binding = null
     }
 
-    //data 수정
-    // 데이터 변경 시 호출할 메서드 추가
-    private fun updateContactData(contact: ContactInformation) {
-        binding.apply {
-            tvName.text = contact.name
-            tvEmail.text = contact.email
-            tvNumber.text = contact.phoneNumber
-            tvRelationship.text = contact.relationship
-            ivProfile.setImageBitmap(contact.imageRes)
-        }
-    }
-
     private fun changeData() {
-        // Open AddContact dialog for editing contact information
         binding.ivUpdate.setOnClickListener {
             val selectedPosition = arguments?.getInt("selectedPosition")
 
@@ -196,7 +155,8 @@ class ContactDetailFragment : Fragment(),AddContact.OnContactAddedListener {
         }
     }
 
-    //todo 변경될 값이 있을 경우에만 -> 추가
+    //todo 변경될 값이 있을 경우에만 update
+    //main 정보 전달
     private fun updateData() {
         val selectedPosition = arguments?.getInt("selectedPosition") //position 값
         val updateName = binding.tvName.text.toString()
