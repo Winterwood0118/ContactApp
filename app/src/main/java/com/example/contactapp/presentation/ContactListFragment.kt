@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -24,6 +27,17 @@ import com.example.contactapp.function.switchHeart
 class ContactListFragment : Fragment() {
     private val binding by lazy { FragmentContactListBinding.inflate(layoutInflater) }
     lateinit var contactAdapter: ContactListAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+        val toolbar = binding.toolbar
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.title = "3조 연락처 앱"
+        toolbar.setTitleTextColor(resources.getColor(R.color.black))
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,32 +81,55 @@ class ContactListFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.ivOption.setOnClickListener {
-            val popupMenu = PopupMenu(requireContext(), it)
-            popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
-            popupMenu.show()
-            popupMenu.setOnMenuItemClickListener {
-                when (it.itemId) {
-                    R.id.gridType -> {
-                        // gridManager
-                        binding.recyclerView.layoutManager = GridLayoutManager(context, 4)
-                        return@setOnMenuItemClickListener true
-                    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_option -> {
+                val popupMenu = PopupMenu(requireContext(), binding.toolbar.findViewById(R.id.action_option))
+                popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
+                popupMenu.show()
+                popupMenu.setOnMenuItemClickListener {
+                    when (it.itemId) {
+                        R.id.gridType -> {
+                            // gridManager
+                            binding.recyclerView.apply {
+                                layoutManager = GridLayoutManager(context, 4)
+                            }
+                            return@setOnMenuItemClickListener true
+                        }
 
-                    R.id.listType -> {
-                        // listManager
-                        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-                        return@setOnMenuItemClickListener true
-                    }
-                    else -> {
-                        return@setOnMenuItemClickListener false
+                        R.id.listType -> {
+                            // listManager
+                            binding.recyclerView.layoutManager = LinearLayoutManager(context)
+                            return@setOnMenuItemClickListener true
+                        }
+
+                        else -> {
+                            return@setOnMenuItemClickListener false
+                        }
                     }
                 }
+                true
             }
+
+            R.id.action_search -> {
+                true
+            }
+
+            R.id.action_heart -> {
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         //Detail 값 받아와서 적용
         parentFragmentManager.setFragmentResultListener("updateData", this)
