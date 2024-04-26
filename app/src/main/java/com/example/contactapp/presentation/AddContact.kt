@@ -49,19 +49,7 @@ class AddContact(private val position: Int) : DialogFragment() {
         dismissListener = listener
     }
 
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
-        dismissListener?.onDialogDismissed()
-    }
-
     private val dataSource = DataSource.getInstance()
-
-    override fun onResume() {
-        super.onResume()
-        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT) //다이얼로그 크기 조정
-    }
-
-
     private val binding: CustomDialogBinding by lazy {
         CustomDialogBinding.inflate(layoutInflater)
     }
@@ -157,6 +145,20 @@ class AddContact(private val position: Int) : DialogFragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT) //다이얼로그 크기 조정
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        dismissListener?.onDialogDismissed()
+    }
+    override fun onDetach() {
+        super.onDetach()
+        contactAddedListener = null
+    }
+
     //이미지 선택
     private fun setUpProfile() {
         binding.ivEdit.setOnClickListener {
@@ -168,13 +170,8 @@ class AddContact(private val position: Int) : DialogFragment() {
         }
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        contactAddedListener = null
-    }
-
     //이메일 유효성 검사
-    fun emailPatternCheck(id: String): Boolean {
+    private fun emailPatternCheck(id: String): Boolean {
         val idPattern =
             "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$" // 이메일
         return (Pattern.matches(idPattern, id))

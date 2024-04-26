@@ -11,9 +11,10 @@ import com.example.contactapp.databinding.FragmentMyPageBinding
 import com.example.contactapp.function.setBitmapProfile
 
 class MyPageFragment : Fragment() {
-    private lateinit var binding: FragmentMyPageBinding
-    lateinit var dataSource: DataSource
-    lateinit var myContact: ContactInformation
+    private var _binding: FragmentMyPageBinding? = null
+    private val binding get() =  _binding!!
+    private lateinit var dataSource: DataSource
+    private lateinit var myContact: ContactInformation
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         dataSource = DataSource.getInstance()
@@ -24,10 +25,15 @@ class MyPageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMyPageBinding.inflate(inflater, container, false)
+        _binding = FragmentMyPageBinding.inflate(inflater, container, false)
         viewDataUpdate()
         setClickListener()
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun viewDataUpdate(){
@@ -50,10 +56,5 @@ class MyPageFragment : Fragment() {
             })
             editDialog.show(parentFragmentManager, AddContact.TAG)
         }
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = MyPageFragment()
     }
 }

@@ -43,7 +43,6 @@ class ContactDetailFragment : Fragment(),AddContact.OnContactAddedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as? MainActivity)?.hideTabLayout() //TabLayout 숨기기
         setUpCall()
         setUpMessage()
         initData()
@@ -133,8 +132,7 @@ class ContactDetailFragment : Fragment(),AddContact.OnContactAddedListener {
 
     private fun goBack() {
         requireActivity().supportFragmentManager.popBackStack()
-        (activity as? MainActivity)?.showTabLayout() //다시 TabLayout 보이기
-        updateData() //Main으로 데이터 보내기
+        updateData()
     }
 
     override fun onDestroyView() {
