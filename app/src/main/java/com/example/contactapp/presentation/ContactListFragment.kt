@@ -32,7 +32,7 @@ class ContactListFragment : Fragment() {
         val dataSource = DataSource.getInstance()
         dataSource.getContactList(requireActivity())
         contactAdapter.contactsList = dataSource.itemList
-      
+
         binding.recyclerView.apply {
             adapter = contactAdapter
             layoutManager = LinearLayoutManager(context)
@@ -48,18 +48,11 @@ class ContactListFragment : Fragment() {
                         putInt("selectedPosition", position)
                     }
                 }
-                detailFragment.setOnDetailDestroyedListener(
-                    object : ContactDetailFragment.OnDetailDestroyedListener{
-                        override fun onDetailDestroyed() {
 
-                        }
-                    }
-                )
                 requireActivity().supportFragmentManager.beginTransaction().apply {
-                    replace(android.R.id.content, detailFragment)
+                    replace(R.id.clMain, detailFragment)
                     addToBackStack(null)
                     commit()
-                    //binding.searchView.visibility = View.GONE //todo searchView 가리기 - 나타나기 구현
                 }
             }
         }
@@ -77,21 +70,23 @@ class ContactListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.ivOption.setOnClickListener {
-            val popupMenu = PopupMenu(requireContext(),it)
-            popupMenu.menuInflater.inflate(R.menu.popup_menu,popupMenu.menu)
+            val popupMenu = PopupMenu(requireContext(), it)
+            popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
             popupMenu.show()
             popupMenu.setOnMenuItemClickListener {
-                when(it.itemId) {
+                when (it.itemId) {
                     R.id.gridType -> {
                         // gridManager
-                        binding.recyclerView.layoutManager = GridLayoutManager(context,4)
+                        binding.recyclerView.layoutManager = GridLayoutManager(context, 4)
                         return@setOnMenuItemClickListener true
                     }
+
                     R.id.listType -> {
                         // listManager
                         binding.recyclerView.layoutManager = LinearLayoutManager(context)
                         return@setOnMenuItemClickListener true
                     }
+
                     else -> {
                         return@setOnMenuItemClickListener false
                     }

@@ -35,15 +35,6 @@ class ContactDetailFragment : Fragment(),AddContact.OnContactAddedListener {
     companion object {
         private const val REQUEST_CALL_PERMISSION = 1 //요청 코드
     }
-    interface OnDetailDestroyedListener {
-        fun onDetailDestroyed()
-    }
-
-    private var destroyedListener: OnDetailDestroyedListener? = null
-    fun setOnDetailDestroyedListener(listener: OnDetailDestroyedListener) {
-        destroyedListener = listener
-    }
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentContactDetailBinding.inflate(inflater, container, false)
