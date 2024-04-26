@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="@+id/ivDelete" />
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivProfile"
         android:layout_width="140dp"
         android:layout_height="140dp"

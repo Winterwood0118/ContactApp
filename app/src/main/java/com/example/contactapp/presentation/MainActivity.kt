@@ -1,6 +1,7 @@
 package com.example.contactapp.presentation
 
 import android.os.Bundle
+import android.view.View
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -38,6 +39,16 @@ class MainActivity : AppCompatActivity() {
                 1 -> tab.text = "MY PAGE"
             }
         }.attach()
+
+
+    }
+
+    fun hideTabLayout() {
+        binding.tlTabs.visibility = View.GONE
+    }
+
+    fun showTabLayout() {
+        binding.tlTabs.visibility = View.VISIBLE
 
         val dataSource = DataSource.getInstance()
         var myContact = dataSource.myContact

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="40dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/toolbar_grey"
-        android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -43,15 +43,15 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolBar"
-        app:srcCompat="@drawable/ic_default_user" />
+        android:src="@drawable/ic_default_user"/>
 
     <TextView
         android:id="@+id/tvName"
@@ -68,19 +68,18 @@
         android:id="@+id/ivDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivUser"
-        app:layout_constraintStart_toEndOf="@+id/ivUser"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toStartOf="@id/ivEdit"
+        app:layout_constraintBottom_toBottomOf="@id/ivUser"
         app:srcCompat="@drawable/ic_delete" />
 
     <ImageView
         android:id="@+id/ivEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivDelete"
-        app:layout_constraintStart_toEndOf="@+id/ivDelete"
-        app:layout_constraintTop_toTopOf="@+id/ivDelete"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/ivUser"
         app:srcCompat="@drawable/id_rewrite" />
 
     <EditText
@@ -181,7 +180,8 @@
         android:background="@drawable/text_edit_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRelationship" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRelationship"
+        android:layout_marginBottom="10dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
