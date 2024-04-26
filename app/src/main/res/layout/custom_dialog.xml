@@ -28,7 +28,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Add"
+            android:text="@string/title_add"
             android:textStyle="bold"
             android:textSize="25sp"
             android:layout_gravity="center"/>
@@ -80,7 +80,7 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/ivUser"
-        app:srcCompat="@drawable/id_rewrite" />
+        app:srcCompat="@drawable/ic_rewrite" />
 
     <EditText
         android:id="@+id/editName"
@@ -105,7 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
-        android:text="@string/PhoneNumber"
+        android:text="@string/phoneNumber"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editName" />
@@ -118,7 +118,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         android:ems="10"
-        android:hint="@string/PhoneNumber"
+        android:hint="@string/phoneNumber"
         android:inputType="number"
         android:padding="10dp"
         android:background="@drawable/text_edit_bg"
@@ -133,7 +133,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
-        android:text="@string/Email"
+        android:text="@string/email"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editPhoneNumber" />
@@ -146,7 +146,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         android:ems="10"
-        android:hint="@string/Email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:padding="10dp"
         android:background="@drawable/text_edit_bg"
@@ -161,7 +161,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
-        android:text="@string/Relationship"
+        android:text="@string/relationship"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editEmail" />
@@ -175,7 +175,7 @@
         android:layout_marginEnd="20dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="@string/Relationship"
+        android:hint="@string/relationship"
         android:padding="10dp"
         android:background="@drawable/text_edit_bg"
         app:layout_constraintEnd_toEndOf="parent"
