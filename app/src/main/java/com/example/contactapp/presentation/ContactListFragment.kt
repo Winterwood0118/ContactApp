@@ -44,7 +44,7 @@ class ContactListFragment : Fragment() {
                     replace(R.id.frameLayout, detailFragment)
                     addToBackStack(null)
                     commit()
-                    binding.searchView.visibility = View.GONE //todo searchView 가리기 - 나타나기 구현
+                    //binding.searchView.visibility = View.GONE //todo searchView 가리기 - 나타나기 구현
                 }
             }
         }
