@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.contactapp.R
 import com.example.contactapp.data.DataSource
@@ -16,12 +17,12 @@ import com.example.contactapp.function.switchHeart
 
 class ContactListFragment : Fragment() {
     private val binding by lazy { FragmentContactListBinding.inflate(layoutInflater) }
-
+    lateinit var contactAdapter: ContactListAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val contactAdapter = ContactListAdapter()
+        contactAdapter = ContactListAdapter()
         val dataSource = DataSource.getInstance()
         dataSource.getContactList(requireActivity())
         contactAdapter.contactsList = dataSource.itemList
@@ -62,8 +63,15 @@ class ContactListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.ivOption.setOnClickListener {
+            val popupMenu = PopupMenu(requireContext(), it)
+            popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
+            popupMenu.show()
+        }
+
         //Detail 값 받아와서 적용
-        parentFragmentManager.setFragmentResultListener("updateData", this) { _, bundle ->
+        parentFragmentManager.setFragmentResultListener("updateData", this)
+        { _, bundle ->
             //
             val position = bundle.getInt("selectedPosition")
             val updateName = bundle.getString("updateName")
@@ -71,8 +79,14 @@ class ContactListFragment : Fragment() {
             val updatePhoneNumber = bundle.getString("updatePhoneNumber")
             val updateRelationship = bundle.getString("updateRelationship")
 
-            updateSelectedDate(position, updateName!!, updateEmail!!, updatePhoneNumber!!, updateRelationship!!)
-            Log.d("main","$position $updateName")
+            updateSelectedDate(
+                position,
+                updateName!!,
+                updateEmail!!,
+                updatePhoneNumber!!,
+                updateRelationship!!
+            )
+            Log.d("main", "$position $updateName")
         }
     }
 
