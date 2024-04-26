@@ -1,44 +1,44 @@
 package com.example.contactapp.presentation
 
-import android.app.Activity
-import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
-import android.graphics.Point
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
+import android.widget.Toast
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import com.example.contactapp.data.ContactInformation
 import com.example.contactapp.data.DataSource
 import com.example.contactapp.databinding.CustomDialogBinding
 import com.example.contactapp.function.setBitmapProfile
+import java.util.regex.Pattern
 
 class AddContact(private val position: Int) : DialogFragment() {
-    interface OnDialogDismissListener{
+    interface OnDialogDismissListener {
         fun onDialogDismissed()
     }
+
     private var dismissListener: OnDialogDismissListener? = null
     fun setOnDialogDismissListener(listener: OnDialogDismissListener) {
         dismissListener = listener
     }
+
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         dismissListener?.onDialogDismissed()
     }
+
     private val dataSource = DataSource.getInstance()
 
     override fun onResume() {
         super.onResume()
-        context?.dialogFragmentResize(this, 0.9f, 0.8f) //다이얼로그를 화면의 비율 90퍼로 나타내기
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 1800) //다이얼로그 크기 조정
     }
+
 
     private val binding: CustomDialogBinding by lazy {
         CustomDialogBinding.inflate(layoutInflater)
@@ -56,6 +56,7 @@ class AddContact(private val position: Int) : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         if (currentContact != null) {
             with(binding) {
                 tvTitle.text = "EDIT"
@@ -69,6 +70,9 @@ class AddContact(private val position: Int) : DialogFragment() {
                 } else {
                     editRelationship.setText(currentContact.relationship)
                 }
+
+
+
                 ivConfirm.setOnClickListener {
                     val resultContact = ContactInformation(
                         name = editName.text.toString(),
@@ -88,59 +92,54 @@ class AddContact(private val position: Int) : DialogFragment() {
             }
         } else {
             with(binding) {
+                var emailCheck: Boolean = false
+                editEmail.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        if (emailPatternCheck(editEmail.text.toString())) {
+                            emailCheck = true
+                        } else {
+                            emailCheck = false
+                        }
+                    }
+
+                    override fun afterTextChanged(p0: Editable?) {
+                    }
+                })
+
                 ivConfirm.setOnClickListener {
-                    val resultContact = ContactInformation(
-                        name = editName.text.toString(),
-                        phoneNumber = editPhoneNumber.text.toString(),
-                        email = editEmail.text.toString(),
-                        imageRes = ivUser.drawable.toBitmap(),
-                        relationship = editRelationship.text.toString()
-                    )
-                    dataSource.addContact(resultContact)
-                    dismiss()
+                    if (emailCheck){
+                        val resultContact = ContactInformation(
+                            name = editName.text.toString(),
+                            phoneNumber = editPhoneNumber.text.toString(),
+                            email = editEmail.text.toString(),
+                            imageRes = ivUser.drawable.toBitmap(),
+                            relationship = editRelationship.text.toString()
+                        )
+                        dataSource.addContact(resultContact)
+                        dismiss()
+                    }else{
+                        Toast.makeText(requireActivity(),"이메일을 확인해 주세요",Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
-
         binding.ivReturn.setOnClickListener {
             dismiss()
         }
-
-
         return binding.root
     }
+
+    //이메일 유효성 검사
+    fun emailPatternCheck(id: String): Boolean {
+        val idPattern =
+            "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$" // 이메일
+        return (Pattern.matches(idPattern, id))
+    }
+
 
     companion object {
         const val TAG = "PurchaseConfirmationDialog"
     }
 
-    //화면 사이즈 구하기
-    fun Context.dialogFragmentResize(dialogFragment: DialogFragment, width: Float, height: Float) {
-        val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-
-        if (Build.VERSION.SDK_INT < 30) {
-
-            val display = windowManager.defaultDisplay //기기의 사이즈 정보
-            val size = Point()
-
-            display.getSize(size)
-
-            val window = dialogFragment.dialog?.window //다이얼로그의 화면
-
-            val x = (size.x * width).toInt()
-            val y = (size.y * height).toInt()
-            window?.setLayout(x, y)
-
-        } else {
-
-            val rect = windowManager.currentWindowMetrics.bounds
-
-            val window = dialogFragment.dialog?.window
-
-            val x = (rect.width() * width).toInt()
-            val y = (rect.height() * height).toInt()
-
-            window?.setLayout(x, y)
-        }
-    }
 }
