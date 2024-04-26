@@ -77,6 +77,11 @@ class ContactListFragment : Fragment() {
         return binding.root
     }
 
+    fun refreshView(){
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+    }
+
+
     companion object {
         // TODO: Rename and change types and number of parameters
         @JvmStatic

@@ -2,6 +2,9 @@ package com.example.contactapp.presentation
 
 import android.os.Bundle
 import android.util.Log
+import android.view.DragAndDropPermissions
+import android.view.MotionEvent
+import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -30,8 +33,8 @@ class MainActivity : AppCompatActivity() {
         viewPager.adapter = FragmentViewPagerAdapter(this)
 
         // tab layout 과 view pager2 연동하는 코드입니다.
-        TabLayoutMediator(tabLayout,viewPager) {tab, position ->
-            when(position) {
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            when (position) {
 //                0 -> tab.text = R.string.tab_left.toString() // 전부 대문자로 하는거 맞나요?
 //                1 -> tab.text = R.string.tab_right.toString() // string 데이터 이렇게 가져오는게 맞나요?
                 0 -> tab.text = "CONTACT LIST" // 값이 제대로 안가져와서 일단 이렇게 만들었어요.
@@ -44,14 +47,15 @@ class MainActivity : AppCompatActivity() {
 
         binding.fab.setOnClickListener {
             val addDialog = AddContact(-5)
-            addDialog.setOnDialogDismissListener(object : AddContact.OnDialogDismissListener{
+            addDialog.setOnDialogDismissListener(object : AddContact.OnDialogDismissListener {
                 override fun onDialogDismissed() {
-//                    myContact = dataSource.myContact
-                    Log.d("contact","$myContact")
-                    viewPager.adapter?.notifyDataSetChanged()
+                    Log.d("contact", "$myContact")
+                    val fragment = FragmentViewPagerAdapter(this@MainActivity)
+                    fragment.refreshListFragment()
                 }
             })
             addDialog.show(supportFragmentManager, AddContact.TAG)
+
         }
     }
 }
