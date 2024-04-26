@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true"
     android:background="@color/white"
+    android:clickable="true"
     tools:context=".presentation.ContactDetailFragment">
 
     <androidx.appcompat.widget.Toolbar
@@ -50,18 +50,18 @@
         android:id="@+id/ivProfile"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/ic_default_user"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textSize="27sp"
+        android:textSize="23sp"
         app:layout_constraintStart_toStartOf="@id/number"
         app:layout_constraintTop_toBottomOf="@id/number"
         tools:text="010 - 1234 - 1234" />
@@ -130,7 +130,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textSize="27sp"
+        android:textSize="23sp"
         app:layout_constraintStart_toStartOf="@id/number"
         app:layout_constraintTop_toBottomOf="@id/email"
         tools:text="bodur@gmail.com" />
@@ -153,7 +153,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textSize="27sp"
+        android:textSize="23sp"
         app:layout_constraintStart_toStartOf="@id/number"
         app:layout_constraintTop_toBottomOf="@id/relationship"
         tools:text="abced" />
@@ -170,13 +170,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvRelationship" />
 
+    <TextView
+        android:id="@+id/callType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="3dp"
+        android:text="Type"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/callLog" />
+
+    <TextView
+        android:id="@+id/callDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="3dp"
+        android:text="date"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/callType"
+        app:layout_constraintTop_toBottomOf="@id/callLog" />
+
+    <TextView
+        android:id="@+id/callTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="50dp"
+        android:text="Time"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/callLog" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        tools:listitem="@layout/call_log_item"
-        app:layout_constraintTop_toBottomOf="@id/callLog"/>
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/callType"
+        tools:listitem="@layout/call_log_item" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

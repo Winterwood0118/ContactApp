@@ -72,6 +72,7 @@ class ContactListFragment : Fragment() {
         binding.ivOption.setOnClickListener {
             val popupMenu = PopupMenu(requireContext(), it)
             popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
+
             popupMenu.show()
             popupMenu.setOnMenuItemClickListener {
                 when (it.itemId) {
@@ -86,7 +87,6 @@ class ContactListFragment : Fragment() {
                         binding.recyclerView.layoutManager = LinearLayoutManager(context)
                         return@setOnMenuItemClickListener true
                     }
-
                     else -> {
                         return@setOnMenuItemClickListener false
                     }

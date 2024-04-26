@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.contactapp.presentation.ContactListFragment
 import com.example.contactapp.presentation.MyPageFragment
 
-class FragmentViewPagerAdapter(val activity:FragmentActivity):FragmentStateAdapter(activity) {
+class FragmentViewPagerAdapter(activity:FragmentActivity):FragmentStateAdapter(activity) {
 
     private val fragments: List<Fragment> =listOf(ContactListFragment(), MyPageFragment())
 
@@ -18,10 +18,4 @@ class FragmentViewPagerAdapter(val activity:FragmentActivity):FragmentStateAdapt
         return fragments[position]
     }
 
-    fun refreshListFragment(){
-        val listFragment = activity.supportFragmentManager.findFragmentByTag("f" + 0)
-        if (listFragment != null){
-            (listFragment as ContactListFragment).refreshView()
-        }
-    }
 }
