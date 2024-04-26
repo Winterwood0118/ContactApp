@@ -1,8 +1,12 @@
 package com.example.contactapp.presentation.call_log
 
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.contactapp.R
 import com.example.contactapp.data.CallInformation
 import com.example.contactapp.databinding.CallLogItemBinding
 
@@ -29,6 +33,13 @@ class CallLogAdapter(var callLog: List<CallInformation>) :
                 tvCallType.text = callInfo.callType
                 tvCallDate.text = callInfo.callDate
                 tvCallDuration.text = callInfo.callDuration
+
+                when (callInfo.callType) {
+                    "수신" -> tvCallType.setTextColor(ContextCompat.getColor(itemView.context, R.color.btn_green))
+                    "발신" -> tvCallType.setTextColor(ContextCompat.getColor(itemView.context, R.color.btn_green))
+                    "부재중" -> tvCallType.setTextColor(ContextCompat.getColor(itemView.context, R.color.red))
+                    else -> tvCallType.setTextColor(ContextCompat.getColor(itemView.context, R.color.red))
+                }
             }
         }
     }

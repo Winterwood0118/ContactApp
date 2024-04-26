@@ -77,7 +77,7 @@ class ContactListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         binding.ibOption.setOnClickListener {
             val popupMenu = PopupMenu(requireContext(),it)
             popupMenu.menuInflater.inflate(R.menu.popup_menu,popupMenu.menu)
@@ -122,30 +122,30 @@ class ContactListFragment : Fragment() {
 //        }
 //    }
 
-    companion object {
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ContactListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-
-        //Detail 값 받아와서 적용
-        parentFragmentManager.setFragmentResultListener("updateData", this) { _, bundle ->
-            //
-            val position = bundle.getInt("selectedPosition")
-            val updateName = bundle.getString("updateName")
-            val updateEmail = bundle.getString("updateEmail")
-            val updatePhoneNumber = bundle.getString("updatePhoneNumber")
-            val updateRelationship = bundle.getString("updateRelationship")
-
-            updateSelectedDate(position, updateName!!, updateEmail!!, updatePhoneNumber!!, updateRelationship!!)
-            Log.d("main","$position $updateName")
-        }
-    }
+//    companion object {
+//        // TODO: Rename and change types and number of parameters
+//        @JvmStatic
+//        fun newInstance(param1: String, param2: String) =
+//            ContactListFragment().apply {
+//                arguments = Bundle().apply {
+//                    putString(ARG_PARAM1, param1)
+//                    putString(ARG_PARAM2, param2)
+//                }
+//            }
+//
+//        //Detail 값 받아와서 적용
+//        parentFragmentManager.setFragmentResultListener("updateData", this) { _, bundle ->
+//            //
+//            val position = bundle.getInt("selectedPosition")
+//            val updateName = bundle.getString("updateName")
+//            val updateEmail = bundle.getString("updateEmail")
+//            val updatePhoneNumber = bundle.getString("updatePhoneNumber")
+//            val updateRelationship = bundle.getString("updateRelationship")
+//
+//            updateSelectedDate(position, updateName!!, updateEmail!!, updatePhoneNumber!!, updateRelationship!!)
+//            Log.d("main","$position $updateName")
+//        }
+//    }
 
     //데이터 수정
     private fun updateSelectedDate(
