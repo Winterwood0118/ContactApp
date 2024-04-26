@@ -66,10 +66,10 @@ class ContactListFragment : Fragment() {
         dataSource.getContactList(requireActivity())
         contactAdapter.contactsList = dataSource.itemList
 
-//        val toolbar = binding.toolbar
-//        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-//        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-//        toolbar.title = "3조 연락처 앱"
+        val toolbar = binding.toolbar
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        toolbar.title = "3조 연락처 앱"
 
         binding.recyclerView.apply {
             adapter = contactAdapter
@@ -93,51 +93,29 @@ class ContactListFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.ibOption.setOnClickListener {
-            val popupMenu = PopupMenu(requireContext(),it)
-            popupMenu.menuInflater.inflate(R.menu.popup_menu,popupMenu.menu)
-            popupMenu.show()
-        }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.toolbar_menu, menu)
+        // 메뉴 항목에 대한 추가 설정 및 처리
     }
 
-    // 작동 안함
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        super.onCreateOptionsMenu(menu, inflater)
-//        inflater.inflate(R.menu.toolbar_menu, menu)
-//        // 메뉴 항목에 대한 추가 설정 및 처리
-//    }
-
-
-    // 액션버튼 메뉴 액션바에 집어 넣기
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-//        inflater.inflate(R.menu.toolbar_menu,menu)
-//
-////        // Associate searchable configuration with the SearchView
-////        val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
-////        (menu?.findItem(R.id.action_search)?.actionView as SearchView).apply {
-////            setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
-////        }
-//    }
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        when(item?.itemId) {
-//            R.id.action_search -> {
-//                Toast.makeText(requireContext(),"검색 이벤트 실행", Toast.LENGTH_SHORT).show()
-//                return super.onOptionsItemSelected(item)
-//            }
-//            R.id.action_heart -> {
-//                Toast.makeText(requireContext(),"즐겨찾기 이벤트 실행", Toast.LENGTH_SHORT).show()
-//                return super.onOptionsItemSelected(item)
-//            }
-//            R.id.action_option -> {
-//                // 기능 처리
-//                return super.onOptionsItemSelected(item)
-//            }
-//            else -> return super.onOptionsItemSelected(item)
-//        }
-//    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item?.itemId) {
+            R.id.action_search -> {
+                Toast.makeText(requireContext(),"검색 이벤트 실행", Toast.LENGTH_SHORT).show()
+                return super.onOptionsItemSelected(item)
+            }
+            R.id.action_heart -> {
+                Toast.makeText(requireContext(),"즐겨찾기 이벤트 실행", Toast.LENGTH_SHORT).show()
+                return super.onOptionsItemSelected(item)
+            }
+            R.id.action_option -> {
+                // 기능 처리
+                return super.onOptionsItemSelected(item)
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
 
     companion object {
         // TODO: Rename and change types and number of parameters
