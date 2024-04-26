@@ -27,8 +27,7 @@ class AddContact(private val position: Int) : DialogFragment() {
     private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) { //이미지를 선택할 경우
             selectedUri = uri
-            //uri -> bitMap으로 변경
-            val imageBitmap = uriToBitmap(requireContext(), uri)
+            val imageBitmap = uriToBitmap(requireContext(), uri)//uri -> bitMap으로 변경
             binding.ivUser.setImageBitmap(imageBitmap)
         }
     }
