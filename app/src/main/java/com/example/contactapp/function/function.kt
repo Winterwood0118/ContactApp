@@ -35,7 +35,7 @@ fun ImageView.setBitmapProfile(bitmap: Bitmap?){
 }
 
 //uri -> Bitmap 변환
-fun uriToBitmap(context: Context, uri: Uri): Bitmap? {
+/*fun uriToBitmap(context: Context, uri: Uri): Bitmap? {
     return try {
         val inputStream = context.contentResolver.openInputStream(uri)
         BitmapFactory.decodeStream(inputStream)
@@ -43,5 +43,5 @@ fun uriToBitmap(context: Context, uri: Uri): Bitmap? {
         e.printStackTrace()
         null
     }
-}
+}*/
 

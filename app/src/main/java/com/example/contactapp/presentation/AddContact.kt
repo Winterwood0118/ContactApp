@@ -1,6 +1,10 @@
 package com.example.contactapp.presentation
 
 import android.content.DialogInterface
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Point
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,6 +22,15 @@ import com.example.contactapp.function.setBitmapProfile
 import java.util.regex.Pattern
 
 class AddContact(private val position: Int) : DialogFragment() {
+    interface OnContactAddedListener {
+        fun onContactAdded(contactInfo: ContactInformation)
+    }
+    
+    private var contactAddedListener: OnContactAddedListener? = null
+    fun setOnContactAddedListener(listener: OnContactAddedListener) {
+        contactAddedListener = listener
+    }
+    
     interface OnDialogDismissListener {
         fun onDialogDismissed()
     }
@@ -56,7 +69,7 @@ class AddContact(private val position: Int) : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
+      
         if (currentContact != null) {
             with(binding) {
                 tvTitle.text = "EDIT"
@@ -71,8 +84,6 @@ class AddContact(private val position: Int) : DialogFragment() {
                     editRelationship.setText(currentContact.relationship)
                 }
 
-
-
                 ivConfirm.setOnClickListener {
                     val resultContact = ContactInformation(
                         name = editName.text.toString(),
@@ -86,6 +97,8 @@ class AddContact(private val position: Int) : DialogFragment() {
                     } else {
                         dataSource.itemList[position] = resultContact
                     }
+
+                    contactAddedListener?.onContactAdded(resultContact)
                     dismiss()
                 }
 
@@ -117,6 +130,7 @@ class AddContact(private val position: Int) : DialogFragment() {
                             relationship = editRelationship.text.toString()
                         )
                         dataSource.addContact(resultContact)
+                        contactAddedListener?.onContactAdded(resultContact)
                         dismiss()
                     }else{
                         Toast.makeText(requireActivity(),"이메일을 확인해 주세요",Toast.LENGTH_SHORT).show()
@@ -128,6 +142,10 @@ class AddContact(private val position: Int) : DialogFragment() {
             dismiss()
         }
         return binding.root
+    }
+    override fun onDetach() {
+        super.onDetach()
+        contactAddedListener = null
     }
 
     //이메일 유효성 검사
