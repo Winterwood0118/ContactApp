@@ -4,7 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
+    android:background="@color/white"
     tools:context=".presentation.ContactDetailFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolbar_grey"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="DETAIL"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/ivUpdate"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"
+            app:srcCompat="@drawable/ic_add" />
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="20dp"
+            app:srcCompat="@drawable/ic_back" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivProfile"
@@ -14,25 +54,7 @@
         android:src="@drawable/ic_default_user"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/ivAdd"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/ic_create"
-        app:layout_constraintBottom_toBottomOf="@id/ivProfile"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageView
-        android:id="@+id/ivDelete"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/ic_delete"
-        app:layout_constraintBottom_toBottomOf="@id/ivAdd"
-        app:layout_constraintEnd_toStartOf="@id/ivAdd" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
 
     <TextView
         android:id="@+id/tvName"
@@ -135,6 +157,26 @@
         app:layout_constraintStart_toStartOf="@id/number"
         app:layout_constraintTop_toBottomOf="@id/relationship"
         tools:text="abced" />
+
+    <TextView
+        android:id="@+id/callLog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Call Log"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvRelationship" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:listitem="@layout/call_log_item"
+        app:layout_constraintTop_toBottomOf="@id/callLog"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

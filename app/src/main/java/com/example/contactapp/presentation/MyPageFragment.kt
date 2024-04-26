@@ -41,25 +41,14 @@ class MyPageFragment : Fragment() {
     }
 
     private fun setClickListener(){
-        with(binding) {
-            ivAdd.setOnClickListener {
-                val addDialog = AddContact(-5)
-                addDialog.setOnDialogDismissListener(object : AddContact.OnDialogDismissListener{
-                    override fun onDialogDismissed() {
-                        viewDataUpdate()
-                    }
-                })
-                addDialog.show(parentFragmentManager, AddContact.TAG)
-            }
-            ivRewrite.setOnClickListener {
-                val editDialog = AddContact(-1)
-                editDialog.setOnDialogDismissListener(object : AddContact.OnDialogDismissListener{
-                    override fun onDialogDismissed() {
-                        viewDataUpdate()
-                    }
-                })
-                editDialog.show(parentFragmentManager, AddContact.TAG)
-            }
+        binding.ivRewrite.setOnClickListener {
+            val editDialog = AddContact(-1)
+            editDialog.setOnDialogDismissListener(object : AddContact.OnDialogDismissListener{
+                override fun onDialogDismissed() {
+                    viewDataUpdate()
+                }
+            })
+            editDialog.show(parentFragmentManager, AddContact.TAG)
         }
     }
 
