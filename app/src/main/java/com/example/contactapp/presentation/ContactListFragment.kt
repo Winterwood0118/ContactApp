@@ -96,6 +96,7 @@ class ContactListFragment : Fragment() {
         binding.recyclerView.adapter?.notifyItemChanged(position)
     }
 
+    //리사이클러뷰 갱신
     fun refreshView() {
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }
