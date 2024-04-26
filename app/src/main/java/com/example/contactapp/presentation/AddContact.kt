@@ -58,7 +58,7 @@ class AddContact(private val position: Int) : DialogFragment() {
 
     override fun onResume() {
         super.onResume()
-        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, 1800) //다이얼로그 크기 조정
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT) //다이얼로그 크기 조정
     }
 
 
