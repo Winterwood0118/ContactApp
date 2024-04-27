@@ -32,34 +32,34 @@
 + **좋아요 버튼 기능 활성화(on/off)**
 ---
 ## 🐳 ***Features***
-### 1) 전화 기록
+#### 1) 전화 기록
 ![전화기록](https://github.com/Winterwood0118/ContactApp/assets/115936076/3e222aa3-5db7-4754-a86c-54020d0e72e1)
 
-### 2) 전화
+#### 2) 전화
 ![전화](https://github.com/Winterwood0118/ContactApp/assets/115936076/7cd987a3-bdd5-4668-aa65-0aa83e0820f9)
 
-### 3) 다이얼로그 변화
+#### 3) 다이얼로그 변화
 ![다이얼로그 변화](https://github.com/Winterwood0118/ContactApp/assets/115936076/32043126-f1ad-4929-949a-a1b848b777df)
 
-### 4) 레이아웃 변경
+#### 4) 레이아웃 변경
 ![레이아웃 변경](https://github.com/Winterwood0118/ContactApp/assets/115936076/ad34790d-f3f6-4b70-9ba4-6c7994a93190)
 
-### 5) 문자
+#### 5) 문자
 ![문자](https://github.com/Winterwood0118/ContactApp/assets/115936076/9ee231a6-aa9b-4aa0-8f33-155b926993b0)
 
-### 6) 좋아요 기능
+#### 6) 좋아요 기능
 ![좋아요](https://github.com/Winterwood0118/ContactApp/assets/115936076/b2dc7b8b-01db-4b61-98a7-a037d2a419e8)
 
-### 7) 데이터 추가 갱신
+#### 7) 데이터 추가 갱신
 ![데이터 추가 갱신](https://github.com/Winterwood0118/ContactApp/assets/115936076/2631e52f-0644-45f5-a1d4-23e9da06806f)
 
-### 8) 스와이프 기능
+#### 8) 스와이프 기능
 ![스와이프](https://github.com/Winterwood0118/ContactApp/assets/115936076/3bb83b57-89e6-48b0-a508-4832cf6826f5)
 
-### 9) 데이터 갱신
+#### 9) 데이터 갱신
 ![데이터 갱신](https://github.com/Winterwood0118/ContactApp/assets/115936076/790c94ea-3e18-4774-b1ac-6a48fd02814f)
 
-### 10) 이미지 Uri
+#### 10) 이미지 Uri
 ![이미지Uri](https://github.com/Winterwood0118/ContactApp/assets/115936076/d1a83c8f-467b-49c2-968a-303617889997)
 
 ---
