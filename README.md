@@ -69,7 +69,7 @@
 ## ⏰ 개발 기간
 > 2024.04.22 - 2024.04.27
 
-## 🔗 참고 노션
+## 🔗 참고 자료료
 [프로젝트 노션자료](https://careful-profit-519.notion.site/3-c772fa70a76446558d9e151c44d76fc4,"클릭해보세요!")<br>
 [유튜브앱시연영상](https://www.youtube.com/watch?v=EsB6NObrJRI,"얼른들어가세요!")
 
