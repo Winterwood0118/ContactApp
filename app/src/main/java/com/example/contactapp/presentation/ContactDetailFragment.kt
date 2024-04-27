@@ -186,15 +186,17 @@ class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
     }
 
     //전화 기록권한 설정
-    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-        if (permissions[Manifest.permission.READ_CALL_LOG] == true && permissions[Manifest.permission.WRITE_CALL_LOG] == true) {
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            if (permissions[Manifest.permission.READ_CALL_LOG] == true && permissions[Manifest.permission.WRITE_CALL_LOG] == true) {
 
-            initCallLogRecyclerView()
-        } else {
+                initCallLogRecyclerView()
+            } else {
 
-            Toast.makeText(requireContext(), "권한을 거부하여서 전화기록을 불러올 수 없습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "권한을 거부하여서 전화기록을 불러올 수 없습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
-    }
+
     private fun isPermissionCallLog() {
         val shouldShowRationale = ActivityCompat.shouldShowRequestPermissionRationale(
             requireActivity(),
@@ -211,6 +213,7 @@ class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
             )
         }
     }
+
     //권한 요청 전 dialog
     private fun showPermissionDialog(text: String) {
         // Explain to the user why your app requires the permissions.
@@ -240,18 +243,15 @@ class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
         //todo 수정2
         //DetailFragment에서 전화를 걸었을 때 실시간으로 RecyclerView가 변경되기 위한 코루틴 - CoroutineScope 생성
         lifecycleScope.launch {//lifecycle 사용하면 생명주기를 인식하는 코루틴 생성 가능
-            while (true) {
-                // todo 알림 액션 시 ->
-                // todo 랜딩
+            // todo 알림 액션 시 ->
+            // todo 랜딩
 
-                val phoneNumber = binding.tvNumber.text.toString().replace("-", "")
+            val phoneNumber = binding.tvNumber.text.toString().replace("-", "")
 
-                val callRecords = getCallLogByPhoneNumber(phoneNumber) // <<일치하는 번호 input하기
-                if (callLogAdapter.callLog != callRecords) { // 데이터가 변경되었을 때만 업데이트
-                    callLogAdapter.callLog = callRecords
-                    callLogAdapter.notifyItemInserted(0)
-                }
-                delay(1000) // 1초마다 체크 todo
+            val callRecords = getCallLogByPhoneNumber(phoneNumber) // <<일치하는 번호 input하기
+            if (callLogAdapter.callLog != callRecords) { // 데이터가 변경되었을 때만 업데이트
+                callLogAdapter.callLog = callRecords
+                callLogAdapter.notifyItemInserted(0)
             }
         }
     }
