@@ -23,7 +23,10 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        viewInit()
+    }
 
+    private fun viewInit(){
         val tabLayout = binding.tlTabs
         val viewPager = binding.vpViewpager
         viewPager.adapter = FragmentViewPagerAdapter(this)
@@ -36,13 +39,16 @@ class MainActivity : AppCompatActivity() {
             }
         }.attach()
 
-    }
+        binding.fab.setOnClickListener {
+            val addDialog = AddContact(-5)
+            addDialog.setOnDialogDismissListener(object : AddContact.OnDialogDismissListener {
+                override fun onDialogDismissed() {
+                    val fragment = FragmentViewPagerAdapter(this@MainActivity)
+                    fragment.refreshListFragment()
+                }
+            })
+            addDialog.show(supportFragmentManager, AddContact.TAG)
+        }
 
-    fun hideTabLayout() {
-        binding.tlTabs.visibility = View.GONE
-    }
-
-    fun showTabLayout() {
-        binding.tlTabs.visibility = View.VISIBLE
     }
 }
