@@ -1,6 +1,7 @@
 package com.example.contactapp.presentation
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -13,7 +14,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -30,7 +33,8 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-//todo 정보 수정했을 때만 update
+//todo 수정1)정보 수정했을 때만 update
+//todo 수정2)전화 기록 update 문제
 class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
     private lateinit var callLogAdapter: CallLogAdapter
     private var _binding: FragmentContactDetailBinding? = null
@@ -44,6 +48,7 @@ class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentContactDetailBinding.inflate(inflater, container, false)
+        isPermissionCallLog()
         return binding.root
     }
 
@@ -60,7 +65,6 @@ class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             goBack()
         }
-        isPermissionCallLog()
     }
 
 
@@ -70,7 +74,11 @@ class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
             val phoneNumber = binding.tvNumber.text
             val callIntent = Uri.parse("tel:$phoneNumber")
             // 권한 확인
-            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.CALL_PHONE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
                 requireActivity().requestPermissions(arrayOf(Manifest.permission.CALL_PHONE), REQUEST_CALL_PERMISSION)
             } else {
                 startActivity(Intent(Intent.ACTION_CALL, callIntent))
@@ -128,6 +136,7 @@ class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
         _binding = null
     }
 
+    //데이터 수정 (Dialog 띄우기)
     private fun changeData() {
         binding.ivUpdate.setOnClickListener {
             val selectedPosition = arguments?.getInt("selectedPosition")
@@ -139,8 +148,8 @@ class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
         }
     }
 
-    //todo 변경될 값이 있을 경우에만 update
     //main 정보 전달
+    // todo 수정1
     private fun updateData() {
         val selectedPosition = arguments?.getInt("selectedPosition") //position 값
         val updateName = binding.tvName.text.toString()
@@ -148,8 +157,19 @@ class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
         val updatePhoneNumber = binding.tvNumber.text.toString()
         val updateRelationship = binding.tvRelationship.text.toString()
 
+        // 기존 데이터 가져오기
+        val oldName = arguments?.getString("updateName")
+        val oldEmail = arguments?.getString("updateEmail")
+        val oldPhoneNumber = arguments?.getString("updatePhoneNumber")
+        val oldRelationship = arguments?.getString("updateRelationship")
 
-        if (selectedPosition != null) {
+        // 변경된 데이터와 기존 데이터를 비교하여 변경 여부 확인
+        val dataChanged = updateName != oldName ||
+                updateEmail != oldEmail ||
+                updatePhoneNumber != oldPhoneNumber ||
+                updateRelationship != oldRelationship
+
+        if (selectedPosition != null && dataChanged) {
             val bundle = Bundle().apply {
                 putInt("selectedPosition", selectedPosition)
                 putString("updateName", updateName)
@@ -165,20 +185,52 @@ class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
         inputEachData(contactInfo)
     }
 
-    //권한 설정
-    private fun isPermissionCallLog(){
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_CALL_LOG) != PackageManager.PERMISSION_GRANTED
-        ) {
-            requestPermissions(arrayOf(Manifest.permission.READ_CALL_LOG, Manifest.permission.WRITE_CALL_LOG), //todo deprecated 수정
-                REQUEST_CALL_PERMISSION
+    //전화 기록권한 설정
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            if (permissions[Manifest.permission.READ_CALL_LOG] == true && permissions[Manifest.permission.WRITE_CALL_LOG] == true) {
+
+                initCallLogRecyclerView()
+            } else {
+
+                Toast.makeText(requireContext(), "권한을 거부하여서 전화기록을 불러올 수 없습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    private fun isPermissionCallLog() {
+        val shouldShowRationale = ActivityCompat.shouldShowRequestPermissionRationale(
+            requireActivity(),
+            Manifest.permission.READ_CALL_LOG
+        ) || ActivityCompat.shouldShowRequestPermissionRationale(
+            requireActivity(),
+            Manifest.permission.WRITE_CALL_LOG
+        )
+        if (shouldShowRationale) {
+            showPermissionDialog("전화 기록을 가져오기 위한 권한이 필요합니다.")
+        } else {
+            requestPermissionLauncher.launch(
+                arrayOf(Manifest.permission.READ_CALL_LOG, Manifest.permission.WRITE_CALL_LOG)
             )
         }
-        else {
-            // 필요한 권한이 이미 허용된 경우
-            initCallLogRecyclerView()
-        }
     }
+
+    //권한 요청 전 dialog
+    private fun showPermissionDialog(text: String) {
+        // Explain to the user why your app requires the permissions.
+        AlertDialog.Builder(requireContext())
+            .setMessage(text)
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+                requestPermissionLauncher.launch(
+                    arrayOf(Manifest.permission.READ_CALL_LOG, Manifest.permission.WRITE_CALL_LOG)
+                )
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
 
     //recyclerView 초기 설정
     private fun initCallLogRecyclerView() {
@@ -188,18 +240,18 @@ class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
         binding.recyclerView.adapter = callLogAdapter
 
 
-        //todo 수정 필요
+        //todo 수정2
         //DetailFragment에서 전화를 걸었을 때 실시간으로 RecyclerView가 변경되기 위한 코루틴 - CoroutineScope 생성
         lifecycleScope.launch {//lifecycle 사용하면 생명주기를 인식하는 코루틴 생성 가능
-            while (true) {
-                val phoneNumber = binding.tvNumber.text.toString().replace("-", "")
+            // todo 알림 액션 시 ->
+            // todo 랜딩
 
-                val callRecords = getCallLogByPhoneNumber(phoneNumber) // <<일치하는 번호 input하기
-                if (callLogAdapter.callLog != callRecords) { // 데이터가 변경되었을 때만 업데이트
-                    callLogAdapter.callLog = callRecords
-                    callLogAdapter.notifyItemInserted(0)
-                }
-                delay(1000) // 1초마다 체크 todo
+            val phoneNumber = binding.tvNumber.text.toString().replace("-", "")
+
+            val callRecords = getCallLogByPhoneNumber(phoneNumber) // <<일치하는 번호 input하기
+            if (callLogAdapter.callLog != callRecords) { // 데이터가 변경되었을 때만 업데이트
+                callLogAdapter.callLog = callRecords
+                callLogAdapter.notifyItemInserted(0)
             }
         }
     }
@@ -217,7 +269,11 @@ class ContactDetailFragment : Fragment(), AddContact.OnContactAddedListener {
             //Cursor c = cr.query(CallLog.Calls.CONTENT_URI, null, null, null, null); 참조
             //Cursor c = cr.query(Selection(WHERE), Selection Arguments, Group By, Having, Order By);
             val cursor = context?.contentResolver?.query( //sql query: 데이터 검색을 위해 사용한 메서드
-                CallLog.Calls.CONTENT_URI, null, "${CallLog.Calls.NUMBER}=?", arrayOf(phoneNumber), "${CallLog.Calls.DATE} DESC"
+                CallLog.Calls.CONTENT_URI,
+                null,
+                "${CallLog.Calls.NUMBER}=?",
+                arrayOf(phoneNumber),
+                "${CallLog.Calls.DATE} DESC"
             )
 
             Log.d("cursor", "$cursor")
