@@ -33,47 +33,57 @@
 ---
 ## 🐳 ***Features***
 #### 1) 전화 기록
-![전화기록](https://github.com/Winterwood0118/ContactApp/assets/115936076/3e222aa3-5db7-4754-a86c-54020d0e72e1)
+<p align="center"><img src="https://github.com/Winterwood0118/ContactApp/assets/115936076/3e222aa3-5db7-4754-a86c-54020d0e72e1"></p>
+
 - 전화를 받을 수 있고 거절/승인 을 할 수 있음
 - 아래에 통화 기록에 띄울 수 있음
 ---
 #### 2) 전화
-![전화](https://github.com/Winterwood0118/ContactApp/assets/115936076/7cd987a3-bdd5-4668-aa65-0aa83e0820f9)
+<p align="center"><img src="https://github.com/Winterwood0118/ContactApp/assets/115936076/7cd987a3-bdd5-4668-aa65-0aa83e0820f9"></p>
+
 - 연락처 리스트에 있는 사람에게 전화를 걸 수 있고, 아래에 전화기록을 띄울 수 있음
 ---
 #### 3) 다이얼로그 변화
-![다이얼로그 변화](https://github.com/Winterwood0118/ContactApp/assets/115936076/32043126-f1ad-4929-949a-a1b848b777df)
+<p align="center"><img src="https://github.com/Winterwood0118/ContactApp/assets/115936076/32043126-f1ad-4929-949a-a1b848b777df"></p>
+
 - 하나의 다이얼로그 레이아웃을 가지고 상황에 따라 변형 가능
 - 마이 페이지의 편집 때 나오는 다이얼로그와, 연락처 리스트의 편집 때 나오는 다이얼로그 형태를 다르게 띄울 수 있음
 ---
 #### 4) 레이아웃 변경
-![레이아웃 변경](https://github.com/Winterwood0118/ContactApp/assets/115936076/ad34790d-f3f6-4b70-9ba4-6c7994a93190)
+<p align="center"><img src="https://github.com/Winterwood0118/ContactApp/assets/115936076/ad34790d-f3f6-4b70-9ba4-6c7994a93190"></p>
+
 - 상단 툴바에서 아이템을 클릭하면 팝업 메뉴를 통해 원하는 레이아웃으로 변경 가능
 ---
 #### 5) 문자
-![문자](https://github.com/Winterwood0118/ContactApp/assets/115936076/9ee231a6-aa9b-4aa0-8f33-155b926993b0)
+<p align="center"><img src="https://github.com/Winterwood0118/ContactApp/assets/115936076/9ee231a6-aa9b-4aa0-8f33-155b926993b0"></p>
+
 - 상세 연락처 리스트의 사람에게 문자 메세지 보내기 기능
 ---
 #### 6) 좋아요 기능
-![좋아요](https://github.com/Winterwood0118/ContactApp/assets/115936076/b2dc7b8b-01db-4b61-98a7-a037d2a419e8)
+<p align="center"><img src="https://github.com/Winterwood0118/ContactApp/assets/115936076/b2dc7b8b-01db-4b61-98a7-a037d2a419e8"></p>
+
 - 연락처 리스트 오른쪽에 하트를 추가해서 클릭할때 형태 변경 가능
 ---
 #### 7) 데이터 추가 갱신
-![데이터 추가 갱신](https://github.com/Winterwood0118/ContactApp/assets/115936076/2631e52f-0644-45f5-a1d4-23e9da06806f)
+<p align="center"><img src="https://github.com/Winterwood0118/ContactApp/assets/115936076/2631e52f-0644-45f5-a1d4-23e9da06806f"></p>
+
 - 플로팅 버튼을 통해 새로운 연락처를 생성
 ---
 
 #### 8) 스와이프 기능
-![스와이프](https://github.com/Winterwood0118/ContactApp/assets/115936076/3bb83b57-89e6-48b0-a508-4832cf6826f5)
+<p align="center"><img src="https://github.com/Winterwood0118/ContactApp/assets/115936076/3bb83b57-89e6-48b0-a508-4832cf6826f5"></p>
+
 - 탭 레이아웃과 뷰페이저2를 연동
 - 탭 레이아웃을 클릭해도 되고, 스와이프로 화면을 전환할 수 있음
 ---
 #### 9) 데이터 갱신
-![데이터 갱신](https://github.com/Winterwood0118/ContactApp/assets/115936076/790c94ea-3e18-4774-b1ac-6a48fd02814f)
+<p align="center"><img src="https://github.com/Winterwood0118/ContactApp/assets/115936076/790c94ea-3e18-4774-b1ac-6a48fd02814f"></p>
+
 - 연락처를 수정하고 다시 리스트로 돌아왔을 때 데이터가 갱신되게 변경 가능
 ---
 #### 10) 이미지 Uri
-![이미지Uri](https://github.com/Winterwood0118/ContactApp/assets/115936076/d1a83c8f-467b-49c2-968a-303617889997)
+<p align="center"><img src="https://github.com/Winterwood0118/ContactApp/assets/115936076/d1a83c8f-467b-49c2-968a-303617889997"></p>
+
 - 마이 페이지에서 편집 기능을 이용하여 이미지를 변경 가능
 ---
 ## 👩🏻‍💻👨🏻‍💻 Team members
